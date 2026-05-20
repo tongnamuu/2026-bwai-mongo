@@ -94,6 +94,6 @@ export OLLAMA_API_BASE=http://localhost:11434
 uv run adk run adk_04_ollama_agent
 ```
 
-04 ADK Ollama 예제는 `litellm` 없이 `httpx`로 Ollama `/api/chat`을 직접 호출하는 작은 ADK custom model adapter를 사용합니다.
+04 ADK Ollama 예제는 `httpx`로 Ollama `/api/chat`을 직접 호출하는 작은 ADK custom model adapter를 사용합니다.
 
 자세한 진행 순서와 옵션은 [`hands-on/session-1/README.md`](../hands-on/session-1/README.md)를 확인하세요.

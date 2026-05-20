@@ -6,7 +6,7 @@ description: Session 1 04 ADK Ollama
 
 Python 초보자용 ADK 핸즈온 코드를 생성하세요. 추가 질문을 하지 말고 바로 작업하세요.
 
-목표는 Google ADK의 `LlmAgent`가 `litellm` 없이 로컬 Ollama 서버의 Gemma 4를 호출하는 최소 에이전트 패키지를 만드는 것입니다. Ollama CLI를 직접 호출하는 예제는 만들지 마세요.
+목표는 Google ADK의 `LlmAgent`가 작은 `BaseLlm` custom adapter를 통해 로컬 Ollama 서버의 Gemma 4를 호출하는 최소 에이전트 패키지를 만드는 것입니다. Ollama CLI를 직접 호출하는 예제는 만들지 마세요.
 
 생성할 파일:
 
@@ -36,7 +36,7 @@ hands-on/session-1/work/adk_04_ollama_agent/agent.py
 - `from google.adk.models import BaseLlm, LlmRequest, LlmResponse`를 사용하세요.
 - `from google.genai import types`를 사용하세요.
 - `httpx.AsyncClient`로 Ollama native `/api/chat` 엔드포인트를 직접 호출하는 작은 `OllamaChatLlm(BaseLlm)` 클래스를 작성하세요.
-- `litellm` 또는 `google.adk.models.lite_llm.LiteLlm`을 import하지 마세요.
+- 외부 모델 라우팅 라이브러리나 별도 모델 래퍼를 추가하지 마세요.
 - 기본 Ollama API base는 `http://localhost:11434`입니다.
 - API base는 `OLLAMA_API_BASE` 환경 변수를 우선 사용하고, 없으면 `OLLAMA_HOST` 환경 변수, 그것도 없으면 기본값을 사용하세요.
 - 기본 모델은 `gemma4:e2b`입니다.

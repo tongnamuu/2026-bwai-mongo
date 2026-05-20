@@ -24,6 +24,6 @@ Use this skill for Session 1 Python hands-on tasks in this repository.
 4. Use `python-dotenv` for `.env` loading, but do not create or print a real API key.
 5. Prefer `google-genai` for Gemini API calls, `httpx` for direct Ollama server API calls, and `google-adk` for ADK agents.
 6. Use `google.adk.models.Gemini` for ADK Gemini agents.
-7. For ADK Ollama agents, create a small `BaseLlm` adapter that calls Ollama `/api/chat` with `httpx`; do not use `litellm` or `LiteLlm`.
+7. For ADK Ollama agents, create a small `BaseLlm` adapter that calls Ollama `/api/chat` with `httpx`.
 8. After generating code, check with `py_compile` and use `--help` for regular scripts when possible.
 9. Do not run real Gemini API calls or long Ollama generations unless the user explicitly asks.

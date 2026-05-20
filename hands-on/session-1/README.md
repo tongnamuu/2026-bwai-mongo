@@ -282,7 +282,7 @@ uv run python 03_ollama_server_api.py --endpoint openai
 
 ## 9. 04 ADK Ollama Agent 생성
 
-03에서 Ollama 서버 API를 직접 호출했다면, 이번에는 ADK agent가 작은 custom model adapter를 통해 로컬 Ollama Gemma 4를 쓰도록 만듭니다. ADK 공식 문서는 Ollama 연결에 LiteLLM을 안내하지만, 이 실습에서는 의존성을 줄이기 위해 Ollama `/api/chat`을 직접 호출합니다.
+03에서 Ollama 서버 API를 직접 호출했다면, 이번에는 ADK agent가 작은 custom model adapter를 통해 로컬 Ollama Gemma 4를 쓰도록 만듭니다. 이 실습에서는 Ollama `/api/chat`을 직접 호출합니다.
 
 Antigravity를 사용하는 경우:
 

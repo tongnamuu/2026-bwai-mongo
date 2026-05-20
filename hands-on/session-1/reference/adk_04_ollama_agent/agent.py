@@ -1,4 +1,4 @@
-"""ADK agent that calls local Gemma 4 through Ollama without LiteLLM.
+"""ADK agent that calls local Gemma 4 through Ollama.
 
 Run after Ollama is running:
     cd hands-on/session-1/reference
