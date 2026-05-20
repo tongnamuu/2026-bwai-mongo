@@ -15,7 +15,7 @@
 | 5 | [`.agents/skills/gemma4-python-hands-on/SKILL.md`](../.agents/skills/gemma4-python-hands-on/SKILL.md) | Session 1 Python 핸즈온 skill |
 | 6 | [`prompts/01-ollama-server-api-system-prompt.md`](../hands-on/session-1/prompts/01-ollama-server-api-system-prompt.md) | AI Studio용 Ollama 서버 API 시스템 프롬프트 |
 | 7 | [`prompts/02-adk-ollama-system-prompt.md`](../hands-on/session-1/prompts/02-adk-ollama-system-prompt.md) | AI Studio용 ADK Ollama 시스템 프롬프트 |
-| 8 | `work/` | 생성 코드 위치 |
+| 8 | [`work/pyproject.toml`](../hands-on/session-1/work/pyproject.toml) | 실습용 uv 프로젝트 설정 |
 | 9 | [`reference/`](../hands-on/session-1/reference) | 참고 구현 |
 
 ## Antigravity에서 실행
@@ -57,13 +57,11 @@ Workflow가 자동으로 보이지 않으면 `.agents/workflows/`의 Markdown �
 
 `uv`가 설치되어 있지 않다면 먼저 [Python + uv 설치 가이드](./09-python-uv-setup.md)를 확인하세요.
 
-먼저 `work/`를 uv 프로젝트로 초기화합니다.
+`work/`에는 실습용 `pyproject.toml`이 이미 들어 있습니다. 패키지를 미리 설치하려면 다음만 실행합니다.
 
 ```bash
 cd hands-on/session-1/work
-uv init --bare --name gemma4-session-1 .
-uv venv
-uv add google-adk python-dotenv httpx
+uv sync
 ```
 
 각 Antigravity workflow 또는 AI Studio용 시스템 프롬프트로 코드 생성 후 실행합니다.

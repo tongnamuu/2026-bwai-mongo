@@ -47,6 +47,7 @@
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
 - Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
+- Python 핸즈온을 진행할 경우 `hands-on/session-1/work`에서 `uv sync` 성공
 - Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` slash command 확인
 
 ## 빠른 준비 명령 모음
@@ -56,6 +57,9 @@ Windows PowerShell:
 ```powershell
 uv --version
 uv run python --version
+Set-Location hands-on/session-1/work
+uv sync
+Set-Location ../../..
 ollama --version
 ollama pull gemma4:e2b
 ollama run gemma4:e2b
@@ -67,6 +71,9 @@ macOS:
 ```bash
 uv --version
 uv run python --version
+cd hands-on/session-1/work
+uv sync
+cd ../../..
 ollama --version
 ollama pull gemma4:e2b
 ollama run gemma4:e2b
@@ -165,7 +172,7 @@ Invoke-RestMethod http://localhost:11434/api/tags
 - 설치 직후라면 셸 경로가 아직 반영되지 않았을 수 있습니다. macOS/Linux에서는 터미널을 새로 열거나 `exec $SHELL -l` 후 다시 확인하세요.
 - 회사/학교 장비에서는 공식 설치 스크립트 실행이 차단될 수 있습니다.
 - 첫 실행에서 브라우저 로그인이 열리지 않으면 CLI가 출력한 인증 URL을 직접 브라우저에 붙여넣어 진행하세요.
-- Gemini CLI를 쓰던 개인 사용자는 2026년 6월 18일 전환 일정을 확인하고 Antigravity CLI 설치와 로그인을 미리 끝내세요.
+- Gemini CLI를 쓰던 개인 계정은 2026년 6월 18일 전환 일정을 확인하고 Antigravity CLI 설치와 로그인을 미리 끝내세요.
 - CLI가 꼭 필요한 실습은 아니므로 막히면 Antigravity IDE, VS Code, AI Studio용 프롬프트 흐름으로 진행해도 됩니다.
 
 ### Antigravity workflow가 보이지 않습니다

@@ -1,6 +1,6 @@
 # Antigravity Rules, Workflows, and Skills
 
-이 폴더는 Google Antigravity에서 workspace rules, workflows, skills로 사용할 참가자용 설정입니다.
+이 폴더는 Google Antigravity에서 workspace rules, workflows, skills로 사용할 실습용 설정입니다.
 
 ## Rules
 

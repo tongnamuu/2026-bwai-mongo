@@ -13,7 +13,7 @@
 | `.agents/skills/gemma4-python-hands-on/SKILL.md` | Antigravity skill |
 | `prompts/01-ollama-server-api-system-prompt.md` | Ollama 서버 API 예제 생성용 시스템 프롬프트 |
 | `prompts/02-adk-ollama-system-prompt.md` | ADK Ollama 예제 생성용 시스템 프롬프트 |
-| `work/` | 생성 코드 위치 |
+| `work/` | 생성 코드 위치와 실습용 `pyproject.toml` |
 | `reference/` | 참고 구현 |
 
 ## Antigravity Skills 활용 방식
@@ -24,7 +24,7 @@
 - Workflows: `/session-1-01-ollama-server-api` 같은 slash command로 실행하는 단계별 생성 절차
 - Skills: `gemma4-python-hands-on`처럼 Agent가 Session 1 Python 실습의 맥락과 검토 기준을 참고하는 작업 지식
 
-따라서 실습자는 보통 workflow를 실행하면 되고, skill은 코드 생성/검토/문제 해결의 품질을 맞추는 보조 장치로 사용합니다.
+따라서 보통 workflow를 실행하면 되고, skill은 코드 생성/검토/문제 해결의 품질을 맞추는 보조 장치로 사용합니다.
 
 ```text
 /session-1-01-ollama-server-api
@@ -48,7 +48,7 @@ gemma4-python-hands-on skill 기준으로 hands-on/session-1/work/01_ollama_serv
 | 시간 | 내용 |
 | ---: | --- |
 | 0-5분 | `uv`, Python, Ollama 준비 확인 |
-| 5-10분 | `uv init`, `uv venv`, `uv add`로 프로젝트 준비 |
+| 5-10분 | `work/pyproject.toml` 확인과 `uv sync` |
 | 10-30분 | 01 프롬프트로 Ollama 서버 API 코드 생성과 실행 |
 | 30-55분 | 02 프롬프트로 ADK Ollama agent 생성과 실행 |
 | 55-60분 | 직접 API 호출과 ADK agent 호출 차이 정리 |
@@ -86,16 +86,16 @@ ollama pull gemma4:e4b
 $env:OLLAMA_MODEL = "gemma4:e4b"
 ```
 
-## 1. uv 프로젝트 준비
+## 1. uv 프로젝트 확인
 
-`work/` 폴더를 작은 Python 프로젝트로 초기화합니다.
+`work/` 폴더에는 실습용 `pyproject.toml`이 이미 들어 있습니다. `uv init`이나 `uv add`를 다시 실행할 필요는 없습니다.
 
 ```bash
 cd hands-on/session-1/work
-uv init --bare --name gemma4-session-1 .
-uv venv
-uv add google-adk python-dotenv httpx
+uv sync
 ```
+
+`uv sync`는 로컬 `.venv/`를 만들고 필요한 패키지를 설치합니다. 실습 중 `uv run ...`을 처음 실행해도 같은 프로젝트 설정을 기준으로 환경이 준비됩니다.
 
 의존성 역할:
 

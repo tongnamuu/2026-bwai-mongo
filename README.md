@@ -25,6 +25,8 @@ Ollama로 로컬에 내려받은 Gemma 4를 Ollama 서버 API와 ADK agent로 �
 
 **행사 전에 준비해야 할 것:** Ollama 설치 + Gemma 4 모델 다운로드 + Python + `uv`
 
+**에이전트 기반 코드 생성을 함께 진행할 경우:** Antigravity IDE 또는 Antigravity CLI(`agy`)
+
 Gemma 4 모델은 수 GB이므로 현장 네트워크 상태에 따라 다운로드 시간이 크게 달라질 수 있습니다. 반드시 행사 전에 완료하세요.
 
 → **[Session 1 사전 준비 가이드](hands-on/session-1/prerequisites.md)**

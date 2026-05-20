@@ -17,11 +17,10 @@ hands-on/session-1/work/adk_02_ollama_agent/agent.py
 
 전제:
 
-- 참가자는 이미 `hands-on/session-1/work`에서 `uv init --bare --name gemma4-session-1 .`를 실행했습니다.
-- 참가자는 이미 `uv venv`를 실행했습니다.
-- 참가자는 이미 `uv add google-adk python-dotenv httpx`를 실행했습니다.
-- 참가자는 이미 `ollama pull gemma4:e2b`를 실행했거나 행사 전에 모델을 다운로드했습니다.
-- 참가자는 Ollama 앱을 실행했거나 별도 터미널에서 `ollama serve`를 실행했습니다.
+- `hands-on/session-1/work/pyproject.toml`은 실습용으로 이미 제공되어 있습니다.
+- 필요하면 `hands-on/session-1/work`에서 `uv sync`를 실행합니다.
+- `ollama pull gemma4:e2b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다.
+- Ollama 앱을 실행했거나 별도 터미널에서 `ollama serve`를 실행한 상태입니다.
 - Python 파일에 PEP 723 inline script metadata를 넣지 마세요.
 - 실행 방식은 `uv run adk run adk_02_ollama_agent`입니다.
 
@@ -55,4 +54,4 @@ cd hands-on/session-1/work
 uv run python -m py_compile adk_02_ollama_agent/agent.py
 ```
 
-Ollama 실제 생성 호출은 작은 장비에서는 시간이 걸릴 수 있으므로 사용자가 명시적으로 요청할 때만 실행하세요.
+Ollama 실제 생성 호출은 작은 장비에서는 시간이 걸릴 수 있으므로 명시적인 요청이 있을 때만 실행하세요.

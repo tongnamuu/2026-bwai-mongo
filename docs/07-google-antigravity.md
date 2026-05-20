@@ -27,7 +27,7 @@ Google Antigravity는 Google의 agent-first 개발 플랫폼입니다. Google I/
 
 ### Antigravity CLI를 쓰면 좋은 경우
 
-공식 문서는 Antigravity CLI를 Antigravity의 가벼운 Terminal User Interface로 설명합니다. 같은 에이전트 기능을 터미널에서 쓰기 위한 표면이므로, 다음 상황에 잘 맞습니다.
+공식 문서는 Antigravity CLI를 Antigravity의 가벼운 터미널 UI로 설명합니다. 같은 에이전트 기능을 터미널에서 쓰기 위한 표면이므로, 다음 상황에 잘 맞습니다.
 
 - 키보드 중심으로 작업하고 싶을 때
 - 원격 SSH 환경에서 에이전트를 실행해야 할 때
@@ -76,13 +76,13 @@ https://antigravity.google/download
 
 ## macOS Intel Mac 설치
 
-Antigravity 2.0 데스크톱 앱은 공식 다운로드 페이지의 최소 요구 사항에서 macOS x86 미지원으로 표시됩니다. Intel Mac 사용자는 Antigravity IDE 또는 기존 VS Code 같은 코드 편집기를 준비하세요.
+Antigravity 2.0 데스크톱 앱은 공식 다운로드 페이지의 최소 요구 사항에서 macOS x86 미지원으로 표시됩니다. Intel Mac에서는 Antigravity IDE 또는 기존 VS Code 같은 코드 편집기를 준비하세요.
 
 Intel Mac에서는 Ollama/Gemma 4 실행도 CPU 전용이라 느릴 수 있습니다. 메모리가 8GB라면 Ollama 실행과 편집기를 동시에 켰을 때 전체 시스템이 느려질 수 있으니 `gemma4:e2b`와 가벼운 편집기 조합을 권장합니다.
 
 ## Linux 설치
 
-Antigravity 2.0은 공식 다운로드 기준으로 Linux도 지원합니다. 다만 이 행사 사전 준비 문서의 Ollama/Gemma 4 로컬 실행 절차는 Windows와 macOS만 다룹니다. Linux 사용자는 Antigravity 설치는 공식 다운로드 페이지를 따르고, 로컬 모델 실행은 각자 환경에서 사전 테스트를 마쳐 주세요.
+Antigravity 2.0은 공식 다운로드 기준으로 Linux도 지원합니다. 다만 이 행사 사전 준비 문서의 Ollama/Gemma 4 로컬 실행 절차는 Windows와 macOS만 다룹니다. Linux에서는 Antigravity 설치는 공식 다운로드 페이지를 따르고, 로컬 모델 실행은 각 환경에서 사전 테스트를 마쳐 주세요.
 
 ## Antigravity CLI 설치
 
@@ -168,11 +168,11 @@ agy
 | `@` | 파일 경로 자동완성 |
 | `!<명령>` | 터미널 명령 실행 요청 |
 
-권한 요청이 나오면 내용을 읽고 승인하세요. 실습 전에는 기본 권한 설정을 유지하고, 에이전트가 파일을 수정하거나 명령을 실행하려 할 때 어떤 작업인지 확인하는 흐름을 권장합니다. 참가자 안내에서는 위험한 권한 우회 옵션을 사용하지 마세요.
+권한 요청이 나오면 내용을 읽고 승인하세요. 실습 전에는 기본 권한 설정을 유지하고, 에이전트가 파일을 수정하거나 명령을 실행하려 할 때 어떤 작업인지 확인하는 흐름을 권장합니다. 실습 안내에서는 위험한 권한 우회 옵션을 사용하지 마세요.
 
 ### 설정 파일 위치
 
-Antigravity CLI 설정은 사용자 홈 디렉터리에 저장됩니다. 행사 자료 저장소에는 개인 설정 파일을 커밋하지 않습니다.
+Antigravity CLI 설정은 홈 디렉터리에 저장됩니다. 행사 자료 저장소에는 개인 설정 파일을 커밋하지 않습니다.
 
 ```text
 ~/.gemini/antigravity-cli/settings.json
@@ -294,18 +294,18 @@ Global skill은 여러 작업 공간에서 쓸 수 있지만, 행사 실습에�
 ~/.gemini/antigravity/skills/<skill-name>/
 ```
 
-Antigravity CLI의 개인 설정, 단축키, plugin 파일은 사용자 홈 디렉터리의 `~/.gemini/antigravity-cli/` 아래에 저장됩니다. 행사 자료 저장소 안에는 넣지 않습니다.
+Antigravity CLI의 개인 설정, 단축키, plugin 파일은 홈 디렉터리의 `~/.gemini/antigravity-cli/` 아래에 저장됩니다. 행사 자료 저장소 안에는 넣지 않습니다.
 
 ### 설정 시 주의사항
 
 - 실제 API 키, 토큰, 비밀번호를 rules, workflows, skills에 넣지 마세요.
-- 참가자마다 다른 로컬 경로나 계정 정보는 문서에 고정하지 마세요.
+- 로컬 환경마다 다른 경로나 계정 정보는 문서에 고정하지 마세요.
 - 실습 중 반복할 절차는 workflow에, 장기적으로 지켜야 할 규칙은 rule에, 특정 작업 지식은 skill에 두세요.
 - 설정을 수정한 뒤에는 새 Agent 대화를 열거나 Project 또는 workspace를 다시 열어 반영 여부를 확인하세요.
 
 ## Gemini CLI에서 Antigravity CLI로 전환
 
-2026년 5월 19일 발표 기준으로 Antigravity CLI는 모두에게 제공됩니다. 개인 사용자 중 Google AI Pro/Ultra 또는 무료 Gemini Code Assist for individuals 경로를 쓰는 경우, 2026년 6월 18일부터 Gemini CLI와 Gemini Code Assist IDE 확장이 요청을 처리하지 않습니다. Gemini Code Assist Standard/Enterprise나 Google Cloud 기반 엔터프라이즈 사용자는 별도 정책이 적용되므로 조직 안내를 따르세요.
+2026년 5월 19일 발표 기준으로 Antigravity CLI는 모두에게 제공됩니다. 개인 계정에서 Google AI Pro/Ultra 또는 무료 Gemini Code Assist for individuals 경로를 쓰는 경우, 2026년 6월 18일부터 Gemini CLI와 Gemini Code Assist IDE 확장이 요청을 처리하지 않습니다. Gemini Code Assist Standard/Enterprise나 Google Cloud 기반 엔터프라이즈 환경은 별도 정책이 적용되므로 조직 안내를 따르세요.
 
 Gemini CLI를 이미 쓰고 있다면 행사 전에 다음을 확인하세요.
 

@@ -17,10 +17,9 @@ hands-on/session-1/work/.env.example
 
 전제:
 
-- 참가자는 이미 `hands-on/session-1/work`에서 `uv init --bare --name gemma4-session-1 .`를 실행했습니다.
-- 참가자는 이미 `uv venv`를 실행했습니다.
-- 참가자는 이미 `uv add google-adk python-dotenv httpx`를 실행했습니다.
-- 참가자는 이미 `ollama pull gemma4:e2b`를 실행했거나 행사 전에 모델을 다운로드했습니다.
+- `hands-on/session-1/work/pyproject.toml`은 실습용으로 이미 제공되어 있습니다.
+- 필요하면 `hands-on/session-1/work`에서 `uv sync`를 실행합니다.
+- `ollama pull gemma4:e2b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다.
 - Python 파일에 PEP 723 inline script metadata를 넣지 마세요.
 - 실행 방식은 `uv run python 01_ollama_server_api.py`입니다.
 
@@ -56,4 +55,4 @@ uv run python -m py_compile 01_ollama_server_api.py
 uv run python 01_ollama_server_api.py --help
 ```
 
-Ollama 실제 생성 호출은 작은 장비에서는 시간이 걸릴 수 있으므로 사용자가 명시적으로 요청할 때만 실행하세요.
+Ollama 실제 생성 호출은 작은 장비에서는 시간이 걸릴 수 있으므로 명시적인 요청이 있을 때만 실행하세요.
