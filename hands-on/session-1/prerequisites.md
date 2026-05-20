@@ -169,6 +169,8 @@ Ollama와 Python 실습 자체에는 Antigravity가 필수는 아닙니다. 다�
 
 Antigravity CLI를 사용할 경우:
 
+가능하면 Antigravity 2.0 또는 Antigravity IDE에서 먼저 로그인해 둡니다. 저장된 세션이 없으면 `agy` 첫 실행 중 브라우저 기반 Google 로그인이 열릴 수 있습니다.
+
 이미 설치되어 있다면 버전 확인부터 진행합니다.
 
 ```bash
@@ -195,8 +197,10 @@ agy
 
 ```text
 ?
+/usage
 /permissions
 /skills
+/mcp
 /tasks
 ```
 
@@ -253,7 +257,7 @@ Google Antigravity를 사용할 경우:
 - Antigravity 2.0을 사용할 경우 Project에 행사 자료 폴더 추가
 - Antigravity IDE 또는 기존 편집기를 사용할 경우 행사 자료 폴더 열기 성공
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
-- Antigravity CLI에서 `?`, `/permissions`, `/skills`, `/tasks` 입력 성공
+- Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
 - Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
 

@@ -25,6 +25,17 @@ Google Antigravity는 Google의 agent-first 개발 플랫폼입니다. Google I/
 - Rules, Workflows, Skills: 이 저장소의 `.agents/` 아래에 둔 에이전트 커스터마이징 파일입니다. Rules는 지속 규칙, Workflows는 반복 실행 절차, Skills는 작업별 지식과 절차입니다.
 - Plugins: Antigravity CLI에서 skills, agents, rules, MCP 서버, hooks 등을 묶어 배포하는 단위입니다.
 
+### Antigravity CLI를 쓰면 좋은 경우
+
+공식 문서는 Antigravity CLI를 Antigravity의 가벼운 Terminal User Interface로 설명합니다. 같은 에이전트 기능을 터미널에서 쓰기 위한 표면이므로, 다음 상황에 잘 맞습니다.
+
+- 키보드 중심으로 작업하고 싶을 때
+- 원격 SSH 환경에서 에이전트를 실행해야 할 때
+- IDE보다 가벼운 실행 환경이 필요할 때
+- `uv`, `ollama`, `git` 같은 터미널 명령과 에이전트 작업을 한 흐름에서 다루고 싶을 때
+
+Antigravity CLI와 Antigravity 2.0은 같은 agent harness를 사용하고, 핵심 설정과 권한 설정을 공유합니다. 다만 대화 기록은 기본적으로 별개로 관리되므로, 행사 준비에서는 CLI와 데스크톱 앱 중 실제로 사용할 환경 하나를 먼저 안정적으로 준비하는 것을 권장합니다.
+
 ## Antigravity 2.0 또는 IDE 공통 준비
 
 1. 공식 다운로드 페이지로 이동합니다.
@@ -77,6 +88,8 @@ Antigravity 2.0은 공식 다운로드 기준으로 Linux도 지원합니다. �
 
 Antigravity CLI는 `agy` 명령으로 실행하는 터미널 UI입니다. 설치 스크립트는 공식 Antigravity 도메인에서 내려받아 실행하므로, 회사/학교 장비에서는 보안 정책에 막힐 수 있습니다.
 
+가능하면 Antigravity 2.0 또는 Antigravity IDE에서 먼저 로그인한 뒤 CLI를 실행하세요. 저장된 로그인 세션이 있으면 CLI가 운영체제의 보안 keyring을 통해 조용히 인증을 시도하고, 세션이 없으면 브라우저 기반 Google 로그인으로 넘어갑니다.
+
 이미 설치되어 있다면 새로 설치하지 말고 버전 확인부터 진행하세요.
 
 ```bash
@@ -107,7 +120,7 @@ agy --version
 agy
 ```
 
-첫 실행 시 저장된 세션이 없으면 브라우저 기반 Google 로그인으로 이어집니다. 원격 SSH 환경에서는 CLI가 인증 URL을 출력하므로, 로컬 브라우저에서 로그인한 뒤 인증 코드를 터미널에 붙여넣는 방식으로 진행합니다.
+원격 SSH 환경에서는 CLI가 인증 URL을 출력합니다. 이 URL을 로컬 브라우저에 붙여넣어 로그인한 뒤, 발급된 인증 코드를 터미널에 붙여넣으면 됩니다. 로그아웃이 필요하면 CLI 입력창에서 `/logout`을 실행하세요.
 
 ## Antigravity CLI 기본 사용법
 
@@ -140,8 +153,10 @@ agy
 | 입력 | 용도 |
 | --- | --- |
 | `?` 또는 `/usage` | 도움말과 slash command 목록 확인 |
-| `/permissions` | 에이전트가 명령 실행이나 파일 수정을 요청할 때의 권한 수준 조정 |
+| `/permissions` | 에이전트 자율성 수준 선택: `request-review`, `always-proceed`, `strict` |
 | `/config` 또는 `/settings` | CLI 설정 화면 열기 |
+| `/model` | 기본 reasoning model 선택 |
+| `/keybindings` | 키보드 단축키 편집 |
 | `/skills` | 로컬/글로벌 skill 목록 확인 |
 | `/mcp` | MCP 서버 설정 확인 |
 | `/tasks` | 백그라운드 작업 상태 확인 |
@@ -153,7 +168,19 @@ agy
 | `@` | 파일 경로 자동완성 |
 | `!<명령>` | 터미널 명령 실행 요청 |
 
-권한 요청이 나오면 내용을 읽고 승인하세요. 실습 전에는 기본 권한 설정을 유지하고, 에이전트가 파일을 수정하거나 명령을 실행하려 할 때 어떤 작업인지 확인하는 흐름을 권장합니다.
+권한 요청이 나오면 내용을 읽고 승인하세요. 실습 전에는 기본 권한 설정을 유지하고, 에이전트가 파일을 수정하거나 명령을 실행하려 할 때 어떤 작업인지 확인하는 흐름을 권장합니다. 참가자 안내에서는 위험한 권한 우회 옵션을 사용하지 마세요.
+
+### 설정 파일 위치
+
+Antigravity CLI 설정은 사용자 홈 디렉터리에 저장됩니다. 행사 자료 저장소에는 개인 설정 파일을 커밋하지 않습니다.
+
+```text
+~/.gemini/antigravity-cli/settings.json
+~/.gemini/antigravity-cli/keybindings.json
+~/.gemini/antigravity-cli/plugins/<plugin_name>/
+```
+
+터미널 sandbox 같은 실행 안전 설정도 `settings.json` 또는 `/config`에서 조정할 수 있습니다. 행사 준비 단계에서는 기본값을 유지하고, 명령 실행 요청이 나올 때마다 내용을 확인하는 방식을 권장합니다.
 
 ## 첫 실행 설정
 
@@ -267,12 +294,7 @@ Global skill은 여러 작업 공간에서 쓸 수 있지만, 행사 실습에�
 ~/.gemini/antigravity/skills/<skill-name>/
 ```
 
-Antigravity CLI의 설정과 플러그인은 별도 경로를 씁니다.
-
-```text
-~/.gemini/antigravity-cli/settings.json
-~/.gemini/antigravity-cli/plugins/<plugin_name>/
-```
+Antigravity CLI의 개인 설정, 단축키, plugin 파일은 사용자 홈 디렉터리의 `~/.gemini/antigravity-cli/` 아래에 저장됩니다. 행사 자료 저장소 안에는 넣지 않습니다.
 
 ### 설정 시 주의사항
 
@@ -290,7 +312,7 @@ Gemini CLI를 이미 쓰고 있다면 행사 전에 다음을 확인하세요.
 - Antigravity CLI 설치와 `agy --version` 확인
 - 첫 `agy` 실행과 Google 로그인 확인
 - 기존 Gemini CLI skills, MCP 서버, 설정을 가져올지 여부 확인
-- CLI 안에서 `/permissions`, `/skills`, `/mcp`, `/tasks` 같은 기본 slash command가 열리는지 확인
+- CLI 안에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 같은 기본 slash command가 열리는지 확인
 
 ## 행사 전 확인
 
@@ -300,6 +322,7 @@ Gemini CLI를 이미 쓰고 있다면 행사 전에 다음을 확인하세요.
 - Antigravity 2.0을 사용할 경우 Project에 행사 자료 폴더 추가
 - Antigravity IDE 또는 기존 편집기를 사용할 경우 행사 자료 폴더 열기 성공
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
+- Antigravity CLI를 사용할 경우 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 인식 확인
 - Python 핸즈온 workflow slash command 확인
 

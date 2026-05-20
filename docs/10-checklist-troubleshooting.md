@@ -45,7 +45,7 @@
 - Antigravity 2.0을 사용할 경우 Project에 행사 자료 폴더 추가
 - Antigravity IDE 또는 기존 편집기를 사용할 경우 행사 자료 폴더 열기 성공
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
-- Antigravity CLI에서 `?`, `/permissions`, `/skills`, `/tasks` 입력 성공
+- Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
 - Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` slash command 확인
 
@@ -93,8 +93,10 @@ agy
 
 ```text
 ?
+/usage
 /permissions
 /skills
+/mcp
 /tasks
 ```
 
