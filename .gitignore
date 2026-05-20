@@ -4,3 +4,22 @@ __pycache__/
 .env
 .env.local
 !.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# uv
+.python-version
+
+# HuggingFace model cache (로컬 다운로드 시 생성될 경우 대비)
+.cache/
+
+# OS metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
