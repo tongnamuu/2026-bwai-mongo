@@ -7,7 +7,7 @@ Ollama와 Gemma 4 모델, Python, `uv`를 행사 전에 준비합니다.
 1. Ollama 설치 완료
 2. Gemma 4 모델 다운로드 완료
 3. 터미널 실행 테스트와 API 테스트 1회 성공
-4. Python + `uv` 설치와 패키지 설치 테스트 성공
+4. Python + `uv` 설치와 Session 1 `work/` 프로젝트 동기화 테스트 성공
 5. 코드 편집기를 사용할 경우 Antigravity IDE 또는 기존 편집기 실행 확인
 6. Antigravity 2.0을 사용할 경우 Project 생성과 행사 자료 폴더 연결 확인
 7. Antigravity CLI를 사용할 경우 `agy --version`과 첫 로그인 확인
@@ -26,14 +26,29 @@ Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 로컬 LLM 실행 경로는 
 
 ## 준비 요약
 
+- 사전 설치 소프트웨어는 아래 표를 기준으로 준비합니다.
 - 16GB 이상 Windows 또는 Apple Silicon Mac이면 `gemma4:e4b`까지 준비하면 좋습니다.
 - 8GB 메모리 장비는 운영체제와 관계없이 `gemma4:e2b`만 준비하는 것을 권장합니다.
 - Intel Mac은 Ollama 공식 macOS 지원 기준에서 CPU 전용입니다. Mac에 GPU가 없다는 뜻은 아니지만, Ollama에서는 GPU 가속을 기대하지 말고 `gemma4:e2b`를 기본으로 준비하세요.
 - `gemma4:latest`는 나중에 바뀔 수 있으므로 행사 준비에서는 명시적 태그를 쓰세요.
 - Ollama 서버 기본 주소는 `http://localhost:11434`입니다.
 - Python 핸즈온을 진행하려면 [Python + uv 설치 가이드](../../docs/09-python-uv-setup.md)를 먼저 확인하세요.
+- Session 1의 `hands-on/session-1/work/pyproject.toml`은 미리 제공되므로, `uv init` 대신 `uv sync` 또는 `uv run`으로 시작하면 됩니다.
 - 코드 편집기나 에이전트 도구가 필요하면 [Google Antigravity 2.0 및 CLI 준비 가이드](../../docs/07-google-antigravity.md)를 확인하세요.
 - 60분 실습용 Python 생성 프롬프트는 [Gemma 4 Python 핸즈온 생성 프롬프트](../../docs/08-python-hands-on.md)를 확인하세요.
+
+## 사전 설치 소프트웨어
+
+| 구분 | 소프트웨어 | 확인 명령 또는 기준 |
+| --- | --- | --- |
+| 필수 | Ollama | `ollama --version` |
+| 필수 | Gemma 4 모델 | `ollama list`에서 `gemma4:e2b` 또는 `gemma4:e4b` 확인 |
+| 필수 | `uv` | `uv --version` |
+| 필수 | Python 3.10 이상 | `uv run python --version` |
+| 선택 | Antigravity IDE 또는 기존 코드 편집기 | 행사 자료 폴더 열기 |
+| 선택 | Antigravity CLI | `agy --version`과 첫 로그인 확인 |
+
+Antigravity는 Ollama와 Python 코드 실행 자체에는 필수는 아닙니다. 다만 에이전트 기반 코드 생성 흐름을 그대로 따라가려면 Antigravity IDE 또는 Antigravity CLI 중 하나를 행사 전에 실행해 두는 것을 권장합니다.
 
 ## Ollama 개요
 
@@ -92,6 +107,9 @@ Gemma 4는 Google DeepMind가 공개한 오픈 모델 계열입니다. Google �
 ```powershell
 uv --version
 uv run python --version
+Set-Location hands-on/session-1/work
+uv sync
+Set-Location ../../..
 ollama --version
 ollama pull gemma4:e2b
 ollama run gemma4:e2b
@@ -110,6 +128,9 @@ ollama run gemma4:e4b
 ```bash
 uv --version
 uv run python --version
+cd hands-on/session-1/work
+uv sync
+cd ../../..
 ollama --version
 ollama pull gemma4:e2b
 ollama run gemma4:e2b
@@ -259,6 +280,7 @@ Google Antigravity를 사용할 경우:
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
 - Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
+- Python 핸즈온을 진행할 경우 `hands-on/session-1/work`에서 `uv sync` 성공
 - Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
 
 문제가 생기면 [최종 체크리스트와 문제 해결](../../docs/10-checklist-troubleshooting.md)를 참고하세요.
