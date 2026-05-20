@@ -2,7 +2,7 @@
 
 Run after Ollama is running:
     cd hands-on/session-1/reference
-    uv run adk run adk_04_ollama_agent
+    uv run adk run adk_02_ollama_agent
 """
 
 from __future__ import annotations

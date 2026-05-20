@@ -132,4 +132,4 @@ Invoke-RestMethod `
 
 ## 다음 단계
 
-API 테스트까지 성공했다면 코드 편집기가 필요한 경우 [Google Antigravity 설치 가이드](./07-google-antigravity.md)를 확인하고, 그다음 [최종 체크리스트와 문제 해결](./10-checklist-troubleshooting.md)로 넘어가세요.
+API 테스트까지 성공했다면 코드 편집기나 에이전트 도구가 필요한 경우 [Google Antigravity 2.0 및 CLI 준비 가이드](./07-google-antigravity.md)를 확인하고, 그다음 [최종 체크리스트와 문제 해결](./10-checklist-troubleshooting.md)로 넘어가세요.

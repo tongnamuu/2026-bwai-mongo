@@ -14,14 +14,14 @@ MongoDB User Group(MUG) Seoul과 Google Developer Groups(GDG) Korea가 함께하
 
 | 세션 | 주제 | 사전 준비 | 현장 실습 |
 |---|---|---|---|
-| Session 1 | Gemma 4 Python 핸즈온: Gemini API, ADK, Ollama 연동 | [→ 사전 준비](hands-on/session-1/prerequisites.md) | [→ 핸즈온 가이드](hands-on/session-1/README.md) |
+| Session 1 | Gemma 4 Python 핸즈온: Ollama 서버 API와 ADK 연동 | [→ 사전 준비](hands-on/session-1/prerequisites.md) | [→ 핸즈온 가이드](hands-on/session-1/README.md) |
 | Session 2 | 로컬 RAG 파이프라인: MongoDB Vector Search + voyage-4-nano | [→ 사전 준비](hands-on/session-2/prerequisites.md) | [→ 핸즈온 가이드](hands-on/session-2/README.md) |
 
 ---
 
 ## Session 1 — Gemma 4 Python 핸즈온
 
-Ollama로 로컬에 내려받은 Gemma 4를 Gemini API, ADK, Ollama 서버 API로 각각 연동하는 Python 코드를 생성하고 실행합니다. 코드를 미리 작성해 두는 실습이 아니라, 핸즈온 현장에서 시스템 프롬프트로 코드를 직접 생성하는 방식으로 진행됩니다.
+Ollama로 로컬에 내려받은 Gemma 4를 Ollama 서버 API와 ADK agent로 각각 연동하는 Python 코드를 생성하고 실행합니다. 코드를 미리 작성해 두는 실습이 아니라, 핸즈온 현장에서 시스템 프롬프트로 코드를 직접 생성하는 방식으로 진행됩니다.
 
 **행사 전에 준비해야 할 것:** Ollama 설치 + Gemma 4 모델 다운로드 + Python + `uv`
 

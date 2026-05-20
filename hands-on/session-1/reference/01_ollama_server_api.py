@@ -2,7 +2,7 @@
 
 Run after Ollama is running:
     cd hands-on/session-1/reference
-    uv run python 03_ollama_server_api.py
+    uv run python 01_ollama_server_api.py
 """
 
 from __future__ import annotations

@@ -9,10 +9,8 @@
 
 ## Workflows
 
-- `workflows/session-1-01-gemini-api.md`: Gemini API로 hosted Gemma 4 호출 코드 생성
-- `workflows/session-1-02-adk-gemini-api.md`: ADK agent로 hosted Gemma 4 호출 코드 생성
-- `workflows/session-1-03-ollama-server-api.md`: Ollama 로컬 서버 API 호출 코드 생성
-- `workflows/session-1-04-adk-ollama.md`: ADK agent로 Ollama 로컬 Gemma 4 호출 코드 생성
+- `workflows/session-1-01-ollama-server-api.md`: Ollama 로컬 서버 API 호출 코드 생성
+- `workflows/session-1-02-adk-ollama.md`: ADK agent로 Ollama 로컬 Gemma 4 호출 코드 생성
 
 ## Skills
 

@@ -8,8 +8,10 @@ Ollama와 Gemma 4 모델, Python, `uv`를 행사 전에 준비합니다.
 2. Gemma 4 모델 다운로드 완료
 3. 터미널 실행 테스트와 API 테스트 1회 성공
 4. Python + `uv` 설치와 패키지 설치 테스트 성공
-5. 코드 편집기를 사용할 경우 Google Antigravity 또는 기존 편집기 실행 확인
-6. Antigravity를 사용할 경우 workspace rules, workflows, skills 설정 위치 확인
+5. 코드 편집기를 사용할 경우 Antigravity IDE 또는 기존 편집기 실행 확인
+6. Antigravity 2.0을 사용할 경우 Project 생성과 행사 자료 폴더 연결 확인
+7. Antigravity CLI를 사용할 경우 `agy --version`과 첫 로그인 확인
+8. Antigravity 설정을 사용할 경우 rules, workflows, skills 위치 확인
 
 ## 대상
 
@@ -19,8 +21,8 @@ Ollama와 Gemma 4 모델, Python, `uv`를 행사 전에 준비합니다.
 - macOS Apple Silicon Mac
 - macOS Intel Mac
 
-Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 경로는 이 문서의 범위에서 제외합니다.
-코드 편집기는 Google Antigravity를 선택 준비 항목으로 다룹니다.
+Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 로컬 LLM 실행 경로는 이 문서의 범위에서 제외합니다.
+코드 편집기와 에이전트 도구는 Google Antigravity를 선택 준비 항목으로 다룹니다.
 
 ## 준비 요약
 
@@ -30,7 +32,7 @@ Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 경로는 이 문서의 범�
 - `gemma4:latest`는 나중에 바뀔 수 있으므로 행사 준비에서는 명시적 태그를 쓰세요.
 - Ollama 서버 기본 주소는 `http://localhost:11434`입니다.
 - Python 핸즈온을 진행하려면 [Python + uv 설치 가이드](../../docs/09-python-uv-setup.md)를 먼저 확인하세요.
-- 코드 편집기가 필요하면 [Google Antigravity 설치 가이드](../../docs/07-google-antigravity.md)를 확인하세요.
+- 코드 편집기나 에이전트 도구가 필요하면 [Google Antigravity 2.0 및 CLI 준비 가이드](../../docs/07-google-antigravity.md)를 확인하세요.
 - 60분 실습용 Python 생성 프롬프트는 [Gemma 4 Python 핸즈온 생성 프롬프트](../../docs/08-python-hands-on.md)를 확인하세요.
 
 ## Ollama 개요
@@ -143,29 +145,74 @@ ollama serve
 
 자세한 예시는 [Ollama 서버 및 API 테스트](../../docs/06-server-api-test.md)에 있습니다.
 
-## 코드 편집기: Google Antigravity
+## 선택 준비: Google Antigravity 2.0, IDE, CLI
 
-Google Antigravity는 Google의 agent-first 개발 환경입니다. 이번 행사에서 코드를 열어보고 수정해야 한다면 기존 VS Code를 사용해도 되고, Antigravity를 미리 설치해도 됩니다.
+Google I/O 2026 발표 기준으로 Antigravity는 다음 세 가지 이름을 구분해서 이해하면 됩니다.
 
-Antigravity는 현재 preview 성격의 도구이며, Google Codelab 기준으로 개인 Gmail 계정으로 시작하는 흐름을 안내합니다. 회사/학교 계정이나 관리형 장비에서는 로그인 또는 설치 정책 때문에 막힐 수 있으므로 행사 전에 한 번 실행까지 확인해 주세요.
+- Antigravity 2.0: IDE와 분리된 독립 데스크톱 앱입니다. Project 단위로 여러 폴더를 연결하고, 에이전트 실행과 결과물을 관리합니다.
+- Antigravity IDE: 코드 편집기형 앱입니다. 실습 중 파일을 직접 열고 수정하거나 확장 프로그램을 써야 한다면 IDE 또는 기존 VS Code를 준비하세요.
+- Antigravity CLI, AGY CLI: 터미널에서 `agy` 명령으로 실행하는 Antigravity 터미널 UI입니다. Antigravity 2.0과 같은 agent harness와 설정을 공유합니다.
+
+Ollama와 Python 실습 자체에는 Antigravity가 필수는 아닙니다. 다만 행사에서 에이전트 기반 코드 생성 흐름을 따라 하려면 행사 전에 한 번 실행과 로그인까지 확인해 주세요. 회사/학교 계정이나 관리형 장비에서는 로그인, 설치, 실행 스크립트가 보안 정책으로 막힐 수 있습니다.
 
 준비 기준:
 
-- https://antigravity.google/download 에서 운영체제에 맞는 설치 파일 다운로드
+- Antigravity 2.0 또는 IDE: https://antigravity.google/download 에서 운영체제에 맞는 설치 파일 다운로드
 - Windows: 설치 프로그램 실행 후 앱 실행
-- macOS: DMG 설치 후 Applications 폴더에서 앱 실행
+- macOS Apple Silicon: DMG 설치 후 Applications 폴더에서 앱 실행
+- macOS Intel Mac: 공식 Antigravity 2.0 데스크톱 앱은 x86 미지원으로 표시되므로 Antigravity IDE 또는 기존 VS Code 같은 편집기를 준비
 - 첫 실행 설정 완료
-- 개인 Gmail 계정으로 로그인 가능 여부 확인
+- 사용 가능한 Google 계정으로 로그인 가능 여부 확인
 - 행사 자료 폴더를 열 수 있는지 확인
+- Antigravity 2.0을 쓸 경우 Project에 이 저장소 루트 폴더 추가
 - 이 저장소의 `.agents/rules`, `.agents/workflows`, `.agents/skills` 설정 확인
 
-이 저장소에는 행사 실습용 Antigravity workspace 설정이 들어 있습니다.
+Antigravity CLI를 사용할 경우:
+
+이미 설치되어 있다면 버전 확인부터 진행합니다.
+
+```bash
+agy --version
+agy
+```
+
+설치가 필요하면 Mac/Linux에서는 다음 명령을 사용합니다.
+
+```bash
+curl -fsSL https://antigravity.google/cli/install.sh | bash
+agy --version
+```
+
+Windows PowerShell에서는 다음 설치 명령을 사용합니다.
+
+```powershell
+irm https://antigravity.google/cli/install.ps1 | iex
+agy --version
+agy
+```
+
+행사 자료 저장소 루트에서 `agy`를 실행한 뒤, CLI 입력창에서 다음 기본 명령을 확인해 보세요.
+
+```text
+?
+/permissions
+/skills
+/tasks
+```
+
+간단한 읽기 전용 테스트 프롬프트:
+
+```text
+현재 폴더의 파일 구성을 읽고 Session 1 사전 준비에서 확인해야 할 항목만 요약해 줘. 파일은 수정하지 마.
+```
+
+이 저장소에는 행사 실습용 Antigravity 설정이 들어 있습니다.
 
 - Rules: `.agents/rules/`에 공통 코딩 규칙을 둡니다.
 - Workflows: `.agents/workflows/`에 반복 실습 절차를 두고 Agent 입력창에서 `/workflow-name`으로 실행합니다.
 - Skills: `.agents/skills/<skill-name>/SKILL.md`에 특정 작업용 지식과 절차를 둘 수 있습니다.
 
-자세한 설치와 설정 흐름은 [Google Antigravity 설치 가이드](../../docs/07-google-antigravity.md)에 있습니다.
+자세한 설치와 설정 흐름은 [Google Antigravity 2.0 및 CLI 준비 가이드](../../docs/07-google-antigravity.md)에 있습니다.
 
 ## 행사 전 최종 체크리스트
 
@@ -201,11 +248,14 @@ Intel Mac:
 
 Google Antigravity를 사용할 경우:
 
-- Antigravity 앱 실행 성공
-- 개인 Gmail 계정 로그인 성공
-- 행사 자료 폴더 열기 성공
+- Antigravity 2.0 또는 IDE를 사용할 경우 앱 실행 성공
+- 사용 가능한 Google 계정 로그인 성공
+- Antigravity 2.0을 사용할 경우 Project에 행사 자료 폴더 추가
+- Antigravity IDE 또는 기존 편집기를 사용할 경우 행사 자료 폴더 열기 성공
+- Antigravity CLI를 사용할 경우 `agy --version` 성공
+- Antigravity CLI에서 `?`, `/permissions`, `/skills`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
-- Python 핸즈온을 진행할 경우 `/session-1-01-gemini-api`, `/session-1-02-adk-gemini-api`, `/session-1-03-ollama-server-api`, `/session-1-04-adk-ollama` workflow 확인
+- Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
 
 문제가 생기면 [최종 체크리스트와 문제 해결](../../docs/10-checklist-troubleshooting.md)를 참고하세요.
 
@@ -217,7 +267,7 @@ Google Antigravity를 사용할 경우:
 4. [macOS Apple Silicon 설치 가이드](../../docs/04-macos-apple-silicon.md)
 5. [macOS Intel Mac 설치 가이드](../../docs/05-macos-intel.md)
 6. [Ollama 서버 및 API 테스트](../../docs/06-server-api-test.md)
-7. [Google Antigravity 설치 가이드](../../docs/07-google-antigravity.md)
+7. [Google Antigravity 2.0 및 CLI 준비 가이드](../../docs/07-google-antigravity.md)
 8. [Gemma 4 Python 핸즈온 생성 프롬프트](../../docs/08-python-hands-on.md)
 9. [Python + uv 설치 가이드](../../docs/09-python-uv-setup.md)
 10. [최종 체크리스트와 문제 해결](../../docs/10-checklist-troubleshooting.md)
@@ -232,10 +282,10 @@ Google Antigravity를 사용할 경우:
 - Ollama OpenAI 호환 API 문서: https://docs.ollama.com/api/openai-compatibility
 - uv 설치 문서: https://docs.astral.sh/uv/getting-started/installation/
 - uv Python 설치 문서: https://docs.astral.sh/uv/guides/install-python/
-- Gemini API Quickstart: https://ai.google.dev/gemini-api/docs/quickstart
-- Gemini API 키 안내: https://ai.google.dev/gemini-api/docs/api-key
 - Google Gemma 4 출시 글: https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
 - Google Antigravity 다운로드: https://antigravity.google/download
-- Google Antigravity Codelab: https://codelabs.developers.google.com/getting-started-google-antigravity
+- Introducing Google Antigravity 2.0: https://antigravity.google/blog/introducing-google-antigravity-2-0
+- Google Antigravity CLI: https://antigravity.google/blog/introducing-google-antigravity-cli
+- Gemini CLI에서 Antigravity CLI로 전환 안내: https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/
 - Google Antigravity Rules / Workflows: https://antigravity.google/docs/rules-workflows
 - Google Antigravity Skills: https://antigravity.google/docs/skills

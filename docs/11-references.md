@@ -19,14 +19,19 @@
 ## Gemma 4
 
 - Google Gemma 4 출시 글: https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
-- Gemini API Quickstart: https://ai.google.dev/gemini-api/docs/quickstart
-- Gemini API 키 안내: https://ai.google.dev/gemini-api/docs/api-key
-- Google Gen AI SDK for Python: https://googleapis.github.io/python-genai/
 - Google ADK Ollama 모델 문서: https://adk.dev/agents/models/ollama/
 
 ## Google Antigravity
 
 - Google Antigravity 다운로드: https://antigravity.google/download
-- Google Antigravity Codelab: https://codelabs.developers.google.com/getting-started-google-antigravity
+- Introducing Google Antigravity 2.0: https://antigravity.google/blog/introducing-google-antigravity-2-0
+- Google Antigravity 2.0 Overview: https://antigravity.google/docs/overview
+- Google Antigravity 2.0 Features: https://antigravity.google/docs/features
+- Google Antigravity CLI 출시 글: https://antigravity.google/blog/introducing-google-antigravity-cli
+- Antigravity CLI Overview: https://antigravity.google/docs/cli-overview
+- Antigravity CLI Getting Started: https://antigravity.google/docs/cli-getting-started
+- Antigravity CLI Using AGY CLI: https://antigravity.google/docs/cli-using
+- Antigravity CLI Features: https://antigravity.google/docs/cli-features
+- Gemini CLI에서 Antigravity CLI로 전환 안내: https://developers.googleblog.com/an-important-update-transitioning-gemini-cli-to-antigravity-cli/
 - Google Antigravity Rules / Workflows: https://antigravity.google/docs/rules-workflows
 - Google Antigravity Skills: https://antigravity.google/docs/skills

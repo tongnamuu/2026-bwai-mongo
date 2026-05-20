@@ -135,7 +135,7 @@ OLLAMA_MODEL=<로컬설치모델명>
 
 ### Step 4: 노트북 실행 환경 설정
 
-실습은 **Antigravity IDE** 환경에서 진행합니다.
+실습은 **Antigravity IDE** 또는 Jupyter 노트북을 실행할 수 있는 기존 편집기 환경에서 진행합니다. Antigravity 2.0은 IDE와 분리된 에이전트 관리 앱이므로, 노트북 편집과 확장 프로그램 설치가 필요하면 Antigravity IDE 또는 VS Code를 준비하세요.
 
 #### 확장 프로그램 설치
 

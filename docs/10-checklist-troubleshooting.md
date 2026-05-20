@@ -39,12 +39,15 @@
 
 ### Google Antigravity를 사용할 경우
 
-- Antigravity 앱 실행 성공
-- 개인 Gmail 계정 로그인 성공
+- Antigravity 2.0 또는 IDE를 사용할 경우 앱 실행 성공
+- 사용 가능한 Google 계정 로그인 성공
 - 첫 실행 설정 완료
-- 행사 자료 폴더 열기 성공
+- Antigravity 2.0을 사용할 경우 Project에 행사 자료 폴더 추가
+- Antigravity IDE 또는 기존 편집기를 사용할 경우 행사 자료 폴더 열기 성공
+- Antigravity CLI를 사용할 경우 `agy --version` 성공
+- Antigravity CLI에서 `?`, `/permissions`, `/skills`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
-- Python 핸즈온을 진행할 경우 `/session-1-01-gemini-api`, `/session-1-02-adk-gemini-api`, `/session-1-03-ollama-server-api`, `/session-1-04-adk-ollama` slash command 확인
+- Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` slash command 확인
 
 ## 빠른 준비 명령 모음
 
@@ -78,6 +81,22 @@ ollama run gemma4:e4b
 ```
 
 Windows PowerShell에서도 위 두 줄을 그대로 실행하면 됩니다.
+
+Antigravity CLI를 사용할 경우:
+
+```bash
+agy --version
+agy
+```
+
+`agy` 실행 후 CLI 입력창에서 확인:
+
+```text
+?
+/permissions
+/skills
+/tasks
+```
 
 ## 자주 생기는 문제
 
@@ -133,14 +152,24 @@ Invoke-RestMethod http://localhost:11434/api/tags
 
 ### Google Antigravity 로그인이 안 됩니다
 
-- Google Codelab 기준으로 Antigravity preview는 개인 Gmail 계정으로 시작하는 흐름입니다.
-- 회사/학교 계정이나 관리형 장비에서는 계정 정책 때문에 막힐 수 있습니다.
-- 행사 전에 개인 Gmail 계정으로 앱 실행과 첫 설정까지 확인하세요.
+- Antigravity 2.0, Antigravity IDE, Antigravity CLI 모두 Google 로그인 흐름을 사용합니다.
+- 회사/학교 계정이나 관리형 장비에서는 계정 정책, 설치 정책, 스크립트 실행 정책 때문에 막힐 수 있습니다.
+- 행사 전에 사용할 계정으로 앱 실행, 첫 설정, 또는 `agy` 첫 실행까지 확인하세요.
 - 설치가 막히면 기존 VS Code 같은 코드 편집기를 준비해도 됩니다.
+
+### Antigravity CLI 설치나 실행이 안 됩니다
+
+- `agy --version`이 실패하면 터미널을 새로 열고 다시 확인하세요.
+- 설치 직후라면 셸 경로가 아직 반영되지 않았을 수 있습니다. macOS/Linux에서는 터미널을 새로 열거나 `exec $SHELL -l` 후 다시 확인하세요.
+- 회사/학교 장비에서는 공식 설치 스크립트 실행이 차단될 수 있습니다.
+- 첫 실행에서 브라우저 로그인이 열리지 않으면 CLI가 출력한 인증 URL을 직접 브라우저에 붙여넣어 진행하세요.
+- Gemini CLI를 쓰던 개인 사용자는 2026년 6월 18일 전환 일정을 확인하고 Antigravity CLI 설치와 로그인을 미리 끝내세요.
+- CLI가 꼭 필요한 실습은 아니므로 막히면 Antigravity IDE, VS Code, AI Studio용 프롬프트 흐름으로 진행해도 됩니다.
 
 ### Antigravity workflow가 보이지 않습니다
 
 - 저장소 루트가 아니라 하위 폴더를 연 상태인지 확인하세요.
-- Agent 패널 상단의 `...` 메뉴에서 Customizations를 열고 Workspace Rules, Workflows, Skills를 확인하세요.
-- 자동 인식이 안 되면 `.agents/workflows/`의 Markdown 내용을 Workspace workflow로 직접 추가하세요.
-- 자세한 설정 위치는 [Google Antigravity 설치 가이드](./07-google-antigravity.md)를 확인하세요.
+- Antigravity 2.0에서는 Project에 저장소 루트 폴더가 추가되어 있는지 확인하세요.
+- Agent 패널의 Customizations를 열고 Rules, Workflows, Skills를 확인하세요.
+- 자동 인식이 안 되면 `.agents/workflows/`의 Markdown 내용을 프로젝트 또는 Workspace workflow로 직접 추가하세요.
+- 자세한 설정 위치는 [Google Antigravity 2.0 및 CLI 준비 가이드](./07-google-antigravity.md)를 확인하세요.
