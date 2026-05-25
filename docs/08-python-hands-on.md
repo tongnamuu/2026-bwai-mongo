@@ -71,7 +71,7 @@ Ollama 서버 설정은 생성된 `.env.example`을 `.env`로 복사해 확인�
 01 Ollama 서버 API:
 
 ```bash
-ollama pull gemma4:e2b
+ollama pull gemma4:e4b
 ollama serve
 uv run python 01_ollama_server_api.py
 ```

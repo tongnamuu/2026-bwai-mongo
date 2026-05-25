@@ -9,8 +9,9 @@
 - PowerShell에서 `uv --version` 성공
 - `uv run python --version` 성공
 - PowerShell에서 `ollama --version` 성공
-- `ollama pull gemma4:e2b` 또는 `ollama pull gemma4:e4b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- `ollama pull gemma4:e4b` 완료
+- `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `Invoke-RestMethod http://localhost:11434/api/tags` 성공
 - 가능하면 전원 어댑터 지참하기
 
@@ -20,8 +21,9 @@
 - `uv --version` 성공
 - `uv run python --version` 성공
 - `ollama --version` 성공
-- `ollama pull gemma4:e2b` 또는 `ollama pull gemma4:e4b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- `ollama pull gemma4:e4b` 완료
+- `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `curl http://localhost:11434/api/tags` 성공
 - 가능하면 전원 어댑터 지참하기
 
@@ -32,8 +34,9 @@
 - `uv --version` 성공
 - `uv run python --version` 성공
 - `ollama --version` 성공
-- `ollama pull gemma4:e2b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- 16GB 이상이면 `ollama pull gemma4:e4b` 완료
+- 16GB 이상이면 `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `curl http://localhost:11434/api/tags` 성공
 - 큰 모델을 무리하게 받지 않기
 
@@ -50,6 +53,17 @@
 - Python 핸즈온을 진행할 경우 `hands-on/session-1/work`에서 `uv sync` 성공
 - Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` slash command 확인
 
+### Session 2 로컬 RAG를 진행할 경우
+
+- Docker Desktop 실행 후 `docker ps` 성공
+- `atlas --version` 성공
+- `atlas local setup local-rag` 또는 기존 Local Atlas 인스턴스 생성 완료
+- `atlas local connect local-rag --connectWith connectionString`으로 연결 문자열 확인
+- `hands-on/session-2/work`에서 `uv sync` 성공
+- `voyageai/voyage-4-nano` 임베딩 모델 사전 다운로드 성공
+- `rag_pipeline.ipynb`를 열 수 있는 Jupyter 노트북 환경 준비
+- 편집기에서 `hands-on/session-2/work/.venv` 커널 선택 가능
+
 ## 빠른 준비 명령 모음
 
 Windows PowerShell:
@@ -61,8 +75,8 @@ Set-Location hands-on/session-1/work
 uv sync
 Set-Location ../../..
 ollama --version
-ollama pull gemma4:e2b
-ollama run gemma4:e2b
+ollama pull gemma4:e4b
+ollama run gemma4:e4b
 Invoke-RestMethod http://localhost:11434/api/tags
 ```
 
@@ -75,19 +89,32 @@ cd hands-on/session-1/work
 uv sync
 cd ../../..
 ollama --version
-ollama pull gemma4:e2b
-ollama run gemma4:e2b
+ollama pull gemma4:e4b
+ollama run gemma4:e4b
 curl http://localhost:11434/api/tags
 ```
 
-16GB 이상 장비에서 E4B까지 준비할 경우:
+8GB 메모리 장비일 경우:
 
 ```bash
-ollama pull gemma4:e4b
-ollama run gemma4:e4b
+ollama pull gemma4:e2b
+ollama run gemma4:e2b
 ```
 
 Windows PowerShell에서도 위 두 줄을 그대로 실행하면 됩니다.
+
+Session 2 로컬 RAG를 진행할 경우:
+
+```bash
+docker --version
+docker ps
+atlas --version
+atlas local setup local-rag
+atlas local connect local-rag --connectWith connectionString
+cd hands-on/session-2/work
+uv sync
+uv run python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('voyageai/voyage-4-nano', trust_remote_code=True); print('voyage-4-nano cached')"
+```
 
 Antigravity CLI를 사용할 경우:
 
@@ -129,11 +156,11 @@ Python 버전 준비가 안 된 상태일 수 있습니다. [Python + uv 설치 
 
 - 정상일 수 있습니다. 모델 파일은 수 GB 이상입니다.
 - 행사장 네트워크에서 처음 다운로드하지 마세요.
-- 일단 `gemma4:e2b`만 먼저 완료하세요.
+- 기본 모델인 `gemma4:e4b`를 먼저 받으세요. 8GB 메모리 장비만 `gemma4:e2b`로 낮추세요.
 
 ### 실행 중 컴퓨터가 너무 느려집니다
 
-- 더 작은 모델을 사용하세요: `gemma4:e4b` 대신 `gemma4:e2b`
+- 8GB 메모리 장비라면 `gemma4:e4b` 대신 `gemma4:e2b`를 사용하세요.
 - 브라우저 탭, 영상 회의 앱, 무거운 개발 도구를 닫으세요.
 - 8GB 장비와 Intel Mac에서는 느릴 수 있습니다.
 
@@ -155,9 +182,27 @@ Invoke-RestMethod http://localhost:11434/api/tags
 
 실패하면 Ollama 앱을 실행하거나 `ollama serve`를 별도 터미널에서 실행하세요.
 
+### Docker가 실행되지 않습니다
+
+- Docker Desktop 앱이 켜져 있는지 확인하세요.
+- `docker ps`가 실패하면 Docker Desktop을 재시작하세요.
+- 회사/학교 장비에서는 가상화, 관리자 권한, 보안 정책 때문에 Docker Desktop 실행이 제한될 수 있습니다.
+
+### Local Atlas 초기 구동이 실패합니다
+
+- 먼저 `docker ps`가 성공하는지 확인하세요.
+- Atlas CLI가 설치되어 있는지 `atlas --version`으로 확인하세요.
+- 기존 인스턴스가 있다면 `atlas local setup local-rag` 대신 `atlas local start local-rag`를 사용하세요.
+
+### `voyageai/voyage-4-nano` 다운로드가 실패합니다
+
+- HuggingFace 접속이 가능한 네트워크인지 확인하세요.
+- 회사/학교 네트워크에서 차단될 수 있으므로 행사 전에 다른 네트워크에서 모델 캐시 명령을 실행해 두세요.
+- 자세한 준비 절차는 [Session 2 로컬 RAG 사전 준비 가이드](./12-session-2-rag-setup.md)를 확인하세요.
+
 ### `gemma4:latest`를 써도 되나요?
 
-가능은 하지만 행사 준비용으로는 권장하지 않습니다. `latest`가 나중에 다른 모델로 바뀔 수 있으므로 `gemma4:e2b`, `gemma4:e4b`처럼 명시적 태그를 사용하세요.
+가능은 하지만 행사 준비용으로는 권장하지 않습니다. `latest`가 나중에 다른 모델로 바뀔 수 있으므로 `gemma4:e4b`, `gemma4:e2b`처럼 명시적 태그를 사용하세요.
 
 ### Google Antigravity 로그인이 안 됩니다
 

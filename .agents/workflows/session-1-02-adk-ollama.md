@@ -19,7 +19,7 @@ hands-on/session-1/work/adk_02_ollama_agent/agent.py
 
 - `hands-on/session-1/work/pyproject.toml`은 실습용으로 이미 제공되어 있습니다.
 - 필요하면 `hands-on/session-1/work`에서 `uv sync`를 실행합니다.
-- `ollama pull gemma4:e2b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다.
+- `ollama pull gemma4:e4b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다. 8GB 메모리 장비는 `gemma4:e2b`를 사용할 수 있습니다.
 - Ollama 앱을 실행했거나 별도 터미널에서 `ollama serve`를 실행한 상태입니다.
 - Python 파일에 PEP 723 inline script metadata를 넣지 마세요.
 - 실행 방식은 `uv run adk run adk_02_ollama_agent`입니다.
@@ -38,7 +38,7 @@ hands-on/session-1/work/adk_02_ollama_agent/agent.py
 - 외부 모델 라우팅 라이브러리나 별도 모델 래퍼를 추가하지 마세요.
 - 기본 Ollama API base는 `http://localhost:11434`입니다.
 - API base는 `OLLAMA_API_BASE` 환경 변수를 우선 사용하고, 없으면 `OLLAMA_HOST` 환경 변수, 그것도 없으면 기본값을 사용하세요.
-- 기본 모델은 `gemma4:e2b`입니다.
+- 기본 모델은 `gemma4:e4b`입니다.
 - 모델은 `ADK_OLLAMA_MODEL` 또는 `OLLAMA_MODEL` 환경 변수로 바꿀 수 있게 하세요.
 - `model=OllamaChatLlm(model=model_tag, api_base=api_base)` 형태로 모델을 연결하세요.
 - `root_agent = LlmAgent(...)`를 모듈 최상위에 정의하세요.

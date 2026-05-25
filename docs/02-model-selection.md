@@ -4,35 +4,35 @@
 
 ## 준비 요약
 
-8GB 메모리 장비는 운영체제와 관계없이 `gemma4:e2b`만 준비하는 것을 권장합니다. 모델 선택이 어렵다면 `gemma4:e2b`만 먼저 받아도 됩니다. 행사장에서 안정적으로 따라오는 것이 큰 모델을 무리하게 실행하는 것보다 중요합니다.
+이번 행사 기본 모델은 `gemma4:e4b`입니다. 8GB 메모리 장비만 `gemma4:e2b`를 대체 모델로 준비하세요. 행사장에서 처음 다운로드하지 않도록 본인 장비에 맞는 모델을 미리 받아 두는 것이 중요합니다.
 
 | 장비 | 기본 추천 | 추가 선택 | 비고 |
 | --- | --- | --- | --- |
 | Windows 8GB | `gemma4:e2b` | 없음 | 매우 느릴 수 있습니다. 가능하면 16GB 이상을 권장 |
-| Windows 16GB | `gemma4:e4b` | `gemma4:e2b` | 실패 시 E2B로 낮추세요 |
+| Windows 16GB | `gemma4:e4b` | 없음 | 기본 권장 |
 | Windows 32GB 이상 | `gemma4:e4b` | `gemma4:26b` | GPU/VRAM도 함께 확인 |
 | Apple Silicon Mac 8GB | `gemma4:e2b` | 없음 | 브라우저 탭과 무거운 앱을 줄이세요 |
-| Apple Silicon Mac 16GB | `gemma4:e4b` | `gemma4:e2b` | 대부분 이 조합이면 충분 |
+| Apple Silicon Mac 16GB | `gemma4:e4b` | 없음 | 기본 권장 |
 | Apple Silicon Mac 32GB 이상 | `gemma4:e4b` | `gemma4:26b` 또는 `gemma4:31b` | 큰 모델은 행사 전 반드시 테스트 |
-| Intel Mac | `gemma4:e2b` | `gemma4:e4b` | Ollama 기준 CPU 전용이라 많이 느릴 수 있습니다 |
+| Intel Mac 8GB | `gemma4:e2b` | 없음 | Ollama 기준 CPU 전용이라 많이 느릴 수 있습니다 |
+| Intel Mac 16GB 이상 | `gemma4:e4b` | 없음 | CPU 전용이라 응답이 늦을 수 있습니다 |
 
 ## 모델별 준비 기준
 
 ### `gemma4:e2b`
 
-가장 안전한 기본 모델입니다.
+8GB 메모리 장비용 대체 모델입니다.
 
 - 8GB 장비
-- Intel Mac
-- 처음 Ollama를 설치하는 경우
 - 큰 모델 다운로드가 부담되는 경우
 
 ### `gemma4:e4b`
 
-16GB 이상 장비에서 기본으로 권장하는 모델입니다.
+이번 행사 기본 권장 모델입니다.
 
 - Windows 16GB 이상
 - Apple Silicon Mac 16GB 이상
+- Intel Mac 16GB 이상
 - E2B보다 조금 더 나은 답변 품질을 기대하는 경우
 
 ### `gemma4:26b`

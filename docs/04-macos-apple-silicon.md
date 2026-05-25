@@ -56,16 +56,16 @@ ollama --version
 
 ## 5. Gemma 4 모델 다운로드
 
-8GB 또는 안전한 기본 준비:
-
-```bash
-ollama pull gemma4:e2b
-```
-
-16GB 이상 권장 준비:
+기본 준비:
 
 ```bash
 ollama pull gemma4:e4b
+```
+
+8GB 메모리 장비:
+
+```bash
+ollama pull gemma4:e2b
 ```
 
 32GB 이상에서 큰 모델을 실험할 경우:
@@ -77,7 +77,7 @@ ollama pull gemma4:26b
 ## 6. 실행 테스트
 
 ```bash
-ollama run gemma4:e2b
+ollama run gemma4:e4b
 ```
 
 프롬프트가 열리면 다음 문장을 입력합니다.

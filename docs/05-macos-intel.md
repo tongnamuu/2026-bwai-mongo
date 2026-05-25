@@ -10,7 +10,7 @@
 
 Ollama 공식 macOS 문서는 Apple M series는 CPU/GPU 지원, x86 Mac은 CPU 전용으로 안내합니다. 즉 Intel Mac에 GPU가 없다는 뜻은 아니지만, Ollama에서는 GPU 가속을 기대하지 않는 편이 맞습니다.
 
-Intel Mac은 Apple Silicon Mac보다 로컬 LLM 실행이 훨씬 느릴 수 있습니다. 기본 모델은 `gemma4:e2b`로 준비하세요. `gemma4:e4b`는 16GB 이상 장비에서 E2B가 안정적으로 돌아간 뒤 추가로 시도하는 편이 낫습니다.
+Intel Mac은 Apple Silicon Mac보다 로컬 LLM 실행이 훨씬 느릴 수 있습니다. 16GB 이상 장비는 행사 기본 모델인 `gemma4:e4b`를 먼저 준비하고, 8GB 장비만 `gemma4:e2b`를 준비하세요.
 
 ## 1. 내 Mac 확인
 
@@ -48,7 +48,13 @@ Python 핸즈온 실습을 진행할 경우 먼저 [Python + uv 설치 가이드
 ollama --version
 ```
 
-## 5. E2B 모델 다운로드
+## 5. Gemma 4 모델 다운로드
+
+```bash
+ollama pull gemma4:e4b
+```
+
+8GB 메모리 장비:
 
 ```bash
 ollama pull gemma4:e2b
@@ -57,7 +63,7 @@ ollama pull gemma4:e2b
 ## 6. 실행 테스트
 
 ```bash
-ollama run gemma4:e2b
+ollama run gemma4:e4b
 ```
 
 프롬프트가 열리면 다음 문장을 입력합니다.

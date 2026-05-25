@@ -66,24 +66,24 @@ ollama --version
 Ollama 실습 전에는 모델이 미리 다운로드되어 있어야 합니다.
 
 ```bash
-ollama pull gemma4:e2b
+ollama pull gemma4:e4b
 ollama list
 ```
 
-16GB 이상 장비에서는 `gemma4:e4b`도 사용할 수 있습니다.
+8GB 메모리 장비에서만 `gemma4:e2b`를 사용하세요.
 
-macOS/Linux:
+macOS/Linux 8GB 장비:
 
 ```bash
-ollama pull gemma4:e4b
-export OLLAMA_MODEL=gemma4:e4b
+ollama pull gemma4:e2b
+export OLLAMA_MODEL=gemma4:e2b
 ```
 
-Windows PowerShell:
+Windows PowerShell 8GB 장비:
 
 ```powershell
-ollama pull gemma4:e4b
-$env:OLLAMA_MODEL = "gemma4:e4b"
+ollama pull gemma4:e2b
+$env:OLLAMA_MODEL = "gemma4:e2b"
 ```
 
 ## 1. uv 프로젝트 확인
@@ -152,8 +152,8 @@ Copy-Item .env.example .env
 ```dotenv
 OLLAMA_HOST=http://localhost:11434
 OLLAMA_API_BASE=http://localhost:11434
-OLLAMA_MODEL=gemma4:e2b
-ADK_OLLAMA_MODEL=gemma4:e2b
+OLLAMA_MODEL=gemma4:e4b
+ADK_OLLAMA_MODEL=gemma4:e4b
 ```
 
 ## 4. 01 Ollama 서버 API 코드 실행

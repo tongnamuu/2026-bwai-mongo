@@ -5,7 +5,7 @@ MongoDB Local Atlas, `voyageai/voyage-4-nano` (로컬 실행), Ollama Gemma 4를
 **외부 API 키가 전혀 필요 없습니다.**
 
 > [!IMPORTANT]
-> 이 문서는 **현장 실습** 가이드입니다. Docker 설치와 Atlas CLI 초기 구동은 [사전 준비 가이드](./prerequisites.md)를 먼저 완료하세요.
+> 이 문서는 **현장 실습** 가이드입니다. Docker 설치와 Atlas CLI 초기 구동은 [사전 준비 가이드](../../docs/12-session-2-rag-setup.md)를 먼저 완료하세요.
 
 ## 파일 구성
 
@@ -101,10 +101,10 @@ atlas local connect local-rag --connectWith connectionString
 ollama list
 ```
 
-`gemma4:e2b`가 기본이나, 자신의 사양에 맞게 준비한 태그를 확인합니다. 없으면:
+`gemma4:e4b`가 기본입니다. 8GB 메모리 장비만 `gemma4:e2b`를 사용하세요. 기본 모델이 없으면:
 
 ```bash
-ollama pull gemma4:e2b
+ollama pull gemma4:e4b
 ```
 
 > [!IMPORTANT]
@@ -171,7 +171,7 @@ OLLAMA_MODEL=<로컬설치모델명>
 | 8 | 대화 기록 저장/불러오기 (Memory) |
 | 9 | Gemma 4로 RAG 답변 생성 |
 
-> `sentence-transformers` 첫 실행 시 `voyageai/voyage-4-nano` 모델을 자동으로 다운로드합니다 (약 200MB, 최초 1회만 수행).
+> `sentence-transformers` 첫 실행 시 `voyageai/voyage-4-nano` 모델을 자동으로 다운로드합니다 (최초 1회만 수행). 현장에서 기다리지 않도록 [사전 준비 가이드](../../docs/12-session-2-rag-setup.md#5-임베딩-모델-미리-다운로드)에 따라 행사 전에 미리 받아두세요.
 
 ---
 

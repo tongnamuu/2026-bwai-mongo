@@ -16,10 +16,25 @@
 - uv 설치 문서: https://docs.astral.sh/uv/getting-started/installation/
 - uv Python 설치 문서: https://docs.astral.sh/uv/guides/install-python/
 
+## Docker
+
+- Docker Desktop 다운로드: https://docs.docker.com/get-docker/
+
+## MongoDB Local Atlas
+
+- MongoDB Atlas CLI: https://www.mongodb.com/docs/atlas/cli/current/
+- Create a Local Atlas Deployment: https://www.mongodb.com/docs/atlas/cli/current/atlas-cli-deploy-local/
+
 ## Gemma 4
 
 - Google Gemma 4 출시 글: https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/
 - Google ADK Ollama 모델 문서: https://adk.dev/agents/models/ollama/
+
+## Voyage AI / HuggingFace
+
+- The Voyage 4 model family: https://blog.voyageai.com/2026/01/15/voyage-4/
+- voyageai/voyage-4-nano 모델 카드: https://huggingface.co/voyageai/voyage-4-nano
+- Voyage AI Text Embeddings: https://docs.voyageai.com/docs/embeddings
 
 ## Google Antigravity
 

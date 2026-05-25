@@ -27,9 +27,9 @@ Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 로컬 LLM 실행 경로는 
 ## 준비 요약
 
 - 사전 설치 소프트웨어는 아래 표를 기준으로 준비합니다.
-- 16GB 이상 Windows 또는 Apple Silicon Mac이면 `gemma4:e4b`까지 준비하면 좋습니다.
+- 이번 행사 기본 모델은 `gemma4:e4b`입니다.
 - 8GB 메모리 장비는 운영체제와 관계없이 `gemma4:e2b`만 준비하는 것을 권장합니다.
-- Intel Mac은 Ollama 공식 macOS 지원 기준에서 CPU 전용입니다. Mac에 GPU가 없다는 뜻은 아니지만, Ollama에서는 GPU 가속을 기대하지 말고 `gemma4:e2b`를 기본으로 준비하세요.
+- Intel Mac은 Ollama 공식 macOS 지원 기준에서 CPU 전용입니다. Mac에 GPU가 없다는 뜻은 아니지만, 16GB 이상이면 `gemma4:e4b`를 준비하고 8GB 장비만 `gemma4:e2b`를 준비하세요.
 - `gemma4:latest`는 나중에 바뀔 수 있으므로 행사 준비에서는 명시적 태그를 쓰세요.
 - Ollama 서버 기본 주소는 `http://localhost:11434`입니다.
 - Python 핸즈온을 진행하려면 [Python + uv 설치 가이드](../../docs/09-python-uv-setup.md)를 먼저 확인하세요.
@@ -42,7 +42,7 @@ Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 로컬 LLM 실행 경로는 
 | 구분 | 소프트웨어 | 확인 명령 또는 기준 |
 | --- | --- | --- |
 | 필수 | Ollama | `ollama --version` |
-| 필수 | Gemma 4 모델 | `ollama list`에서 `gemma4:e2b` 또는 `gemma4:e4b` 확인 |
+| 필수 | Gemma 4 모델 | `ollama list`에서 `gemma4:e4b` 확인. 8GB 장비는 `gemma4:e2b` |
 | 필수 | `uv` | `uv --version` |
 | 필수 | Python 3.10 이상 | `uv run python --version` |
 | 선택 | Antigravity IDE 또는 기존 코드 편집기 | 행사 자료 폴더 열기 |
@@ -71,8 +71,8 @@ Gemma 4는 Google DeepMind가 공개한 오픈 모델 계열입니다. Google �
 
 | 모델 | Ollama 태그 | 표시 크기 | 컨텍스트 | 권장 환경 |
 | --- | --- | ---: | ---: | --- |
-| Gemma 4 E2B | `gemma4:e2b` | 7.2GB | 128K | 8GB 또는 Intel Mac 기본 |
-| Gemma 4 E4B | `gemma4:e4b` | 9.6GB | 128K | 16GB 이상 기본 |
+| Gemma 4 E4B | `gemma4:e4b` | 9.6GB | 128K | 기본 권장 모델 |
+| Gemma 4 E2B | `gemma4:e2b` | 7.2GB | 128K | 8GB 메모리 장비용 |
 | Gemma 4 26B A4B | `gemma4:26b` | 18GB | 256K | 32GB 이상, 성능 실험 |
 | Gemma 4 31B | `gemma4:31b` | 20GB | 256K | 36GB 이상, 품질 우선 |
 
@@ -83,12 +83,13 @@ Gemma 4는 Google DeepMind가 공개한 오픈 모델 계열입니다. Google �
 | 장비 | 기본 추천 | 추가 선택 | 비고 |
 | --- | --- | --- | --- |
 | Windows 8GB | `gemma4:e2b` | 없음 | 매우 느릴 수 있습니다. 가능하면 16GB 이상을 권장 |
-| Windows 16GB | `gemma4:e4b` | `gemma4:e2b` | 실패 시 E2B로 낮추세요 |
+| Windows 16GB | `gemma4:e4b` | 없음 | 기본 권장 |
 | Windows 32GB 이상 | `gemma4:e4b` | `gemma4:26b` | GPU/VRAM도 함께 확인 |
 | Apple Silicon Mac 8GB | `gemma4:e2b` | 없음 | 브라우저 탭과 무거운 앱을 줄이세요 |
-| Apple Silicon Mac 16GB | `gemma4:e4b` | `gemma4:e2b` | 대부분 이 조합이면 충분 |
+| Apple Silicon Mac 16GB | `gemma4:e4b` | 없음 | 기본 권장 |
 | Apple Silicon Mac 32GB 이상 | `gemma4:e4b` | `gemma4:26b` 또는 `gemma4:31b` | 큰 모델은 행사 전 반드시 테스트 |
-| Intel Mac | `gemma4:e2b` | `gemma4:e4b` | Ollama 기준 CPU 전용이라 많이 느릴 수 있습니다 |
+| Intel Mac 8GB | `gemma4:e2b` | 없음 | Ollama 기준 CPU 전용이라 많이 느릴 수 있습니다 |
+| Intel Mac 16GB 이상 | `gemma4:e4b` | 없음 | CPU 전용이라 응답이 늦을 수 있습니다 |
 
 세부 기준은 [내 컴퓨터에 맞는 Gemma 4 모델 선택](../../docs/02-model-selection.md)에 있습니다.
 
@@ -96,9 +97,9 @@ Gemma 4는 Google DeepMind가 공개한 오픈 모델 계열입니다. Google �
 
 | 환경 | 설치 문서 | 기본 추천 모델 |
 | --- | --- | --- |
-| Windows | [Windows 설치 가이드](../../docs/03-windows.md) | `gemma4:e2b` 또는 `gemma4:e4b` |
-| macOS Apple Silicon | [macOS Apple Silicon 설치 가이드](../../docs/04-macos-apple-silicon.md) | `gemma4:e2b` 또는 `gemma4:e4b` |
-| macOS Intel Mac | [macOS Intel Mac 설치 가이드](../../docs/05-macos-intel.md) | `gemma4:e2b` |
+| Windows | [Windows 설치 가이드](../../docs/03-windows.md) | `gemma4:e4b` |
+| macOS Apple Silicon | [macOS Apple Silicon 설치 가이드](../../docs/04-macos-apple-silicon.md) | `gemma4:e4b` |
+| macOS Intel Mac | [macOS Intel Mac 설치 가이드](../../docs/05-macos-intel.md) | `gemma4:e4b` 또는 8GB 장비는 `gemma4:e2b` |
 
 ## 빠른 준비 명령
 
@@ -111,16 +112,16 @@ Set-Location hands-on/session-1/work
 uv sync
 Set-Location ../../..
 ollama --version
-ollama pull gemma4:e2b
-ollama run gemma4:e2b
+ollama pull gemma4:e4b
+ollama run gemma4:e4b
 Invoke-RestMethod http://localhost:11434/api/tags
 ```
 
-16GB 이상 장비에서 E4B까지 준비할 경우:
+8GB 메모리 장비일 경우:
 
 ```powershell
-ollama pull gemma4:e4b
-ollama run gemma4:e4b
+ollama pull gemma4:e2b
+ollama run gemma4:e2b
 ```
 
 ### macOS
@@ -132,16 +133,16 @@ cd hands-on/session-1/work
 uv sync
 cd ../../..
 ollama --version
-ollama pull gemma4:e2b
-ollama run gemma4:e2b
+ollama pull gemma4:e4b
+ollama run gemma4:e4b
 curl http://localhost:11434/api/tags
 ```
 
-16GB 이상 장비에서 E4B까지 준비할 경우:
+8GB 메모리 장비일 경우:
 
 ```bash
-ollama pull gemma4:e4b
-ollama run gemma4:e4b
+ollama pull gemma4:e2b
+ollama run gemma4:e2b
 ```
 
 ## Ollama 서버와 API 테스트
@@ -246,8 +247,9 @@ Windows:
 - `uv --version` 성공
 - `uv run python --version` 성공
 - PowerShell에서 `ollama --version` 성공
-- `ollama pull gemma4:e2b` 또는 `ollama pull gemma4:e4b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- `ollama pull gemma4:e4b` 완료
+- `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `Invoke-RestMethod http://localhost:11434/api/tags` 성공
 
 Apple Silicon Mac:
@@ -256,8 +258,9 @@ Apple Silicon Mac:
 - `uv --version` 성공
 - `uv run python --version` 성공
 - `ollama --version` 성공
-- `ollama pull gemma4:e2b` 또는 `ollama pull gemma4:e4b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- `ollama pull gemma4:e4b` 완료
+- `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `curl http://localhost:11434/api/tags` 성공
 
 Intel Mac:
@@ -267,8 +270,9 @@ Intel Mac:
 - `uv --version` 성공
 - `uv run python --version` 성공
 - `ollama --version` 성공
-- `ollama pull gemma4:e2b` 완료
-- `ollama run gemma4:e2b`로 1회 답변 생성 성공
+- 16GB 이상이면 `ollama pull gemma4:e4b` 완료
+- 16GB 이상이면 `ollama run gemma4:e4b`로 1회 답변 생성 성공
+- 8GB 메모리 장비는 `gemma4:e2b`로 준비
 - `curl http://localhost:11434/api/tags` 성공
 
 Google Antigravity를 사용할 경우:

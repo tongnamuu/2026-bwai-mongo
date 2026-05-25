@@ -40,7 +40,7 @@ Windows PowerShell:
 Invoke-RestMethod http://localhost:11434/api/tags
 ```
 
-다운로드한 `gemma4:e2b` 또는 `gemma4:e4b`가 보이면 모델 준비가 끝난 상태입니다.
+다운로드한 기본 모델 `gemma4:e4b`가 보이면 모델 준비가 끝난 상태입니다. 8GB 메모리 장비는 `gemma4:e2b`가 보여도 됩니다.
 
 ## 2. Ollama Chat API 테스트
 
@@ -50,7 +50,7 @@ macOS:
 curl http://localhost:11434/api/chat \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gemma4:e2b",
+    "model": "gemma4:e4b",
     "messages": [
       {
         "role": "user",
@@ -65,7 +65,7 @@ Windows PowerShell:
 
 ```powershell
 $body = @{
-  model = "gemma4:e2b"
+  model = "gemma4:e4b"
   messages = @(
     @{
       role = "user"
@@ -96,7 +96,7 @@ macOS:
 curl http://localhost:11434/v1/chat/completions \
   -H "Content-Type: application/json" \
   -d '{
-    "model": "gemma4:e2b",
+    "model": "gemma4:e4b",
     "messages": [
       {
         "role": "user",
@@ -111,7 +111,7 @@ Windows PowerShell:
 
 ```powershell
 $body = @{
-  model = "gemma4:e2b"
+  model = "gemma4:e4b"
   messages = @(
     @{
       role = "user"

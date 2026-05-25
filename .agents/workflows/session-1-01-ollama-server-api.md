@@ -19,7 +19,7 @@ hands-on/session-1/work/.env.example
 
 - `hands-on/session-1/work/pyproject.toml`은 실습용으로 이미 제공되어 있습니다.
 - 필요하면 `hands-on/session-1/work`에서 `uv sync`를 실행합니다.
-- `ollama pull gemma4:e2b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다.
+- `ollama pull gemma4:e4b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다. 8GB 메모리 장비는 `gemma4:e2b`를 사용할 수 있습니다.
 - Python 파일에 PEP 723 inline script metadata를 넣지 마세요.
 - 실행 방식은 `uv run python 01_ollama_server_api.py`입니다.
 
@@ -31,7 +31,7 @@ hands-on/session-1/work/.env.example
 - HTTP 클라이언트는 `httpx`를 사용하세요.
 - 기본 호스트는 `http://localhost:11434`입니다.
 - 호스트는 `--host` 옵션 또는 `OLLAMA_HOST` 환경 변수로 바꿀 수 있게 하세요.
-- 기본 모델은 `gemma4:e2b`입니다.
+- 기본 모델은 `gemma4:e4b`입니다.
 - 모델은 `--model` 옵션 또는 `OLLAMA_MODEL` 환경 변수로 바꿀 수 있게 하세요.
 - `--prompt` 옵션을 제공하세요.
 - `--system` 옵션을 제공하세요.

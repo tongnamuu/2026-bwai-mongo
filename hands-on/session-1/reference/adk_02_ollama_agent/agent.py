@@ -13,7 +13,7 @@ from pathlib import Path
 
 
 DEFAULT_API_BASE = "http://localhost:11434"
-DEFAULT_MODEL = "gemma4:e2b"
+DEFAULT_MODEL = "gemma4:e4b"
 DEFAULT_TIMEOUT = 180.0
 
 

@@ -19,6 +19,51 @@ MongoDB User Group(MUG) Seoul과 Google Developer Groups(GDG) Korea가 함께하
 
 ---
 
+## 행사 전 설치/다운로드 요약
+
+현장 네트워크에서 모델, Docker 이미지, Python 패키지를 처음 다운로드하면 실습 시간이 크게 줄어들 수 있습니다. 행사 전에 아래 항목을 미리 준비해 주세요.
+
+| 구분 | 준비 항목 | 대상 | 비고 |
+|---|---|---|---|
+| 공통 필수 | Python + `uv` | Session 1, 2 | [Python + uv 설치 가이드](docs/09-python-uv-setup.md) |
+| 공통 필수 | Ollama | Session 1, 2 | [Ollama와 Gemma 4 개요](docs/01-ollama-gemma4-overview.md) |
+| 공통 필수 | `gemma4:e4b` | Session 1, 2 | 기본 Gemma 4 모델 |
+| 저사양 대체 | `gemma4:e2b` | 8GB 메모리 장비 | 8GB 노트북만 사용 |
+| Session 2 필수 | Docker Desktop | Session 2 | Local Atlas 실행에 필요 |
+| Session 2 권장 | Atlas CLI + Local Atlas 초기 구동 | Session 2 | Docker 이미지 사전 다운로드 목적 |
+| Session 2 권장 | Python 패키지 설치 (`uv sync`) | Session 2 | 노트북 실행 환경 준비 |
+| Session 2 권장 | `voyageai/voyage-4-nano` | Session 2 | 로컬 임베딩 모델, HuggingFace에서 최초 1회 다운로드 |
+| Session 2 필수 | Jupyter 노트북 실행 환경 | Session 2 | Antigravity IDE, VS Code, 또는 Jupyter Lab |
+| 선택 | Antigravity IDE 또는 CLI(`agy`) | Session 1 중심 | 에이전트 기반 코드 생성 흐름을 따라갈 경우 |
+
+모델 다운로드:
+
+```bash
+ollama pull gemma4:e4b
+```
+
+8GB 메모리 장비만:
+
+```bash
+ollama pull gemma4:e2b
+```
+
+Session 2 임베딩 모델 사전 다운로드:
+
+```bash
+cd hands-on/session-2/work
+uv sync
+uv run python -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('voyageai/voyage-4-nano', trust_remote_code=True); print('voyage-4-nano cached')"
+```
+
+Session 2 Local Atlas 이미지 사전 다운로드:
+
+```bash
+atlas local setup local-rag
+```
+
+---
+
 ## Session 1 — Gemma 4 Python 핸즈온
 
 Ollama로 로컬에 내려받은 Gemma 4를 Ollama 서버 API와 ADK agent로 각각 연동하는 Python 코드를 생성하고 실행합니다. 코드를 미리 작성해 두는 실습이 아니라, 핸즈온 현장에서 시스템 프롬프트로 코드를 직접 생성하는 방식으로 진행됩니다.
@@ -37,8 +82,8 @@ Gemma 4 모델은 수 GB이므로 현장 네트워크 상태에 따라 다운로
 
 MongoDB Local Atlas, voyage-4-nano 임베딩 모델(로컬 실행), Ollama Gemma 4를 조합해 외부 API 키 없이 완전히 로컬에서 동작하는 RAG 파이프라인을 노트북 하나로 구축합니다.
 
-**행사 전에 준비해야 할 것:** Docker 설치(필수) + Atlas CLI 설치 및 Local Atlas 초기 구동(권장)
+**행사 전에 준비해야 할 것:** Docker 설치(필수) + Atlas CLI 설치 및 Local Atlas 초기 구동(권장) + Python 패키지/`voyageai/voyage-4-nano` 사전 다운로드(권장) + Jupyter 노트북 실행 환경
 
-Atlas CLI로 Local Atlas Docker 이미지를 미리 받아두면 현장에서 기다림 없이 바로 시작할 수 있습니다.
+Atlas CLI로 Local Atlas Docker 이미지를 미리 받아두고, HuggingFace 임베딩 모델 캐시까지 받아두면 현장에서 기다림 없이 바로 시작할 수 있습니다.
 
 → **[Session 2 사전 준비 가이드](hands-on/session-2/prerequisites.md)**

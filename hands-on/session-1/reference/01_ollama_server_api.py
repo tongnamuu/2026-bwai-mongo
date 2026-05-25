@@ -15,7 +15,7 @@ from typing import Any
 
 
 DEFAULT_HOST = "http://localhost:11434"
-DEFAULT_MODEL = "gemma4:e2b"
+DEFAULT_MODEL = "gemma4:e4b"
 DEFAULT_PROMPT = (
     "MongoDB 초보자에게 벡터 검색과 생성형 AI를 함께 쓰는 예시를 "
     "3단계로 설명해 주세요."
