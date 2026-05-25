@@ -11,6 +11,7 @@
 ```text
 hands-on/session-1/work/adk_02_ollama_agent/__init__.py
 hands-on/session-1/work/adk_02_ollama_agent/agent.py
+hands-on/session-1/work/02_adk_streaming_run.py
 ```
 
 전제:
@@ -20,7 +21,8 @@ hands-on/session-1/work/adk_02_ollama_agent/agent.py
 - `ollama pull gemma4:e4b`를 이미 실행했거나 행사 전에 모델을 다운로드한 상태입니다. 8GB 메모리 장비는 `gemma4:e2b`를 사용할 수 있습니다.
 - Ollama 앱을 실행했거나 별도 터미널에서 `ollama serve`를 실행한 상태입니다.
 - 따라서 Python 파일에 PEP 723 inline script metadata를 넣지 마세요.
-- 실행 방식은 `uv run adk run adk_02_ollama_agent`입니다.
+- 기본 ADK CLI 실행 방식은 `uv run adk run adk_02_ollama_agent`입니다.
+- 터미널에서 스트리밍 청크를 확인하는 실행 방식은 `uv run python 02_adk_streaming_run.py "질문"`입니다.
 
 코드 요구사항:
 
@@ -33,23 +35,33 @@ hands-on/session-1/work/adk_02_ollama_agent/agent.py
 - `from google.adk.models import BaseLlm, LlmRequest, LlmResponse`를 사용하세요.
 - `from google.genai import types`를 사용하세요.
 - `httpx.AsyncClient`로 Ollama native `/api/chat` 엔드포인트를 직접 호출하는 작은 `OllamaChatLlm(BaseLlm)` 클래스를 작성하세요.
+- `generate_content_async(self, llm_request, stream: bool = False)`에서 `stream` 인자를 반드시 반영하세요.
+- `stream=True`일 때는 Ollama `/api/chat`에 `"stream": true`를 보내고, `client.stream(...)`과 `response.aiter_lines()`로 JSONL 청크를 읽으세요.
+- 스트리밍 중간 청크는 `LlmResponse(content=..., partial=True, turn_complete=False)`로 즉시 `yield`하세요.
+- 스트리밍이 끝나면 전체 응답을 합쳐 `LlmResponse(content=..., partial=False, turn_complete=True)`를 한 번 더 `yield`하세요.
+- `stream=False`일 때는 기존처럼 `/api/chat`에 `"stream": false`를 보내고 최종 응답 하나만 `partial=False`, `turn_complete=True`로 반환하세요.
 - 외부 모델 라우팅 라이브러리나 별도 모델 래퍼를 추가하지 마세요.
 - 기본 Ollama API base는 `http://localhost:11434`입니다.
 - API base는 `OLLAMA_API_BASE` 환경 변수를 우선 사용하고, 없으면 `OLLAMA_HOST` 환경 변수, 그것도 없으면 기본값을 사용하세요.
 - 기본 모델은 `gemma4:e4b`입니다.
 - 모델은 `ADK_OLLAMA_MODEL` 또는 `OLLAMA_MODEL` 환경 변수로 바꿀 수 있게 하세요.
+- Ollama는 모델 내용이 같아도 태그 문자열을 정확히 비교합니다. `gemma4:e4b`가 없고 `gemma4:latest`만 있으면 자동으로 바꾸지 말고, 오류 메시지에서 `ollama pull gemma4:e4b` 또는 `.env`의 `ADK_OLLAMA_MODEL=gemma4:latest` 설정을 안내하세요.
 - `model=OllamaChatLlm(model=model_tag, api_base=api_base)` 형태로 모델을 연결하세요.
 - `root_agent = LlmAgent(...)`를 모듈 최상위에 정의하세요.
 - agent 이름은 `adk_ollama_gemma4_agent`로 하세요.
 - instruction은 한국어 답변, numbered steps, 로컬 모델 실습 친화적 설명을 요구하도록 작성하세요.
 - 이 실습은 먼저 ADK-Ollama 연결을 확인하는 것이 목표이므로 custom tools는 추가하지 마세요.
 - 코드는 초보자가 읽기 쉽도록 짧게 유지하세요.
+- `02_adk_streaming_run.py`는 `google.adk.runners.InMemoryRunner`, `RunConfig`, `StreamingMode.SSE`를 사용해 `root_agent`를 실행하세요.
+- `02_adk_streaming_run.py`는 `event.partial`인 텍스트 청크를 `print(text, end="", flush=True)`로 즉시 출력하세요.
+- ADK SSE 모드에서는 마지막에 전체 응답 이벤트가 한 번 더 올 수 있으므로, 이미 출력한 스트리밍 텍스트와 같은 최종 응답은 중복 출력하지 마세요.
 
 생성 후 가능하면 다음 검사를 실행하세요.
 
 ```bash
 cd hands-on/session-1/work
 uv run python -m py_compile adk_02_ollama_agent/agent.py
+uv run python -m py_compile 02_adk_streaming_run.py
 ```
 
 Ollama 실제 생성 호출은 작은 장비에서는 시간이 걸릴 수 있으므로 명시적 요청이 있을 때만 실행하세요.

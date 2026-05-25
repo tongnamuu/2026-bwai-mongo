@@ -24,7 +24,7 @@ Antigravity를 사용할 경우 이 저장소 루트를 열거나 Antigravity 2.
 
 ### Skills 활용 방식
 
-이 핸즈온에서 workflow는 `/session-1-01-ollama-server-api`처럼 실행할 절차를 담당하고, skill은 Agent가 Session 1 Python 실습의 배경 지식과 검토 기준을 참고하게 하는 역할입니다.
+이 핸즈온에서 workflow는 코드 생성 절차를 담당하고, skill은 Agent가 Session 1 Python 실습의 배경 지식과 검토 기준을 참고하게 하는 역할입니다. Antigravity 2.0 또는 IDE에서는 workflow가 `/session-1-01-ollama-server-api`처럼 보일 수 있고, Antigravity CLI에서는 workflow 파일을 직접 참조해서 실행합니다.
 
 저장소 skill 위치:
 
@@ -44,11 +44,23 @@ gemma4-python-hands-on skill을 참고해서 Session 1 규칙에 맞게 코드�
 gemma4-python-hands-on skill 기준으로 hands-on/session-1/work/01_ollama_server_api.py를 검토하고 필요한 부분만 고쳐 줘.
 ```
 
-Agent 입력창에서 다음 workflow를 실행합니다.
+Antigravity 2.0 또는 IDE에서 workflow slash command가 보이면 다음처럼 실행합니다.
 
 ```text
 /session-1-01-ollama-server-api
 /session-1-02-adk-ollama
+```
+
+Antigravity CLI(`agy`)에서 `No matches`가 나오면 다음처럼 workflow 파일을 직접 참조합니다.
+
+```text
+@.agents/workflows/session-1-01-ollama-server-api.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
+```
+
+```text
+@.agents/workflows/session-1-02-adk-ollama.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
 ```
 
 Workflow가 자동으로 보이지 않으면 `.agents/workflows/`의 Markdown 파일 내용을 프로젝트 또는 Workspace workflow로 직접 추가하세요. Antigravity를 쓰지 않는 경우에는 `hands-on/session-1/prompts/`의 시스템 프롬프트를 AI Studio 등에 붙여넣어 같은 실습 코드를 만들 수 있습니다.
@@ -68,6 +80,8 @@ uv sync
 
 Ollama 서버 설정은 생성된 `.env.example`을 `.env`로 복사해 확인하는 방식을 권장합니다.
 
+01 Ollama 서버 API 예제는 기본적으로 streaming으로 응답을 출력하게 생성합니다. 응답을 한 번에 받고 싶으면 `--no-stream` 옵션을 사용합니다.
+
 01 Ollama 서버 API:
 
 ```bash
@@ -83,6 +97,10 @@ export OLLAMA_API_BASE=http://localhost:11434
 uv run adk run adk_02_ollama_agent
 ```
 
-02 ADK Ollama 예제는 `httpx`로 Ollama `/api/chat`을 직접 호출하는 작은 ADK custom model adapter를 사용합니다.
+02 ADK Ollama 예제는 `httpx`로 Ollama `/api/chat`을 직접 호출하는 작은 ADK custom model adapter를 사용합니다. ADK SSE 스트리밍을 터미널에서 확인하려면 생성된 실행 스크립트를 사용합니다.
+
+```bash
+uv run python 02_adk_streaming_run.py "MongoDB 벡터 검색을 3단계로 설명해 줘."
+```
 
 자세한 진행 순서와 옵션은 [`hands-on/session-1/README.md`](../hands-on/session-1/README.md)를 확인하세요.

@@ -241,7 +241,7 @@ Rules 파일 하나는 12,000자 이내로 유지하세요. 다른 파일을 참
 
 ### Workflows
 
-Workflows는 반복 작업 절차를 Markdown으로 저장해 두고 Agent 입력창에서 slash command로 실행하는 기능입니다.
+Workflows는 반복 작업 절차를 Markdown으로 저장해 두고 Agent가 그대로 수행하게 하는 기능입니다. Antigravity 2.0 또는 IDE에서는 workflow가 slash command로 보일 수 있지만, Antigravity CLI(`agy`)에서는 프로젝트의 `.agents/workflows/*.md`가 slash command로 자동 등록되지 않을 수 있습니다.
 
 이번 실습에서는 `.agents/workflows/` 아래의 Session 1 workflow를 사용합니다.
 
@@ -250,14 +250,26 @@ Workflows는 반복 작업 절차를 Markdown으로 저장해 두고 Agent 입�
 .agents/workflows/session-1-02-adk-ollama.md
 ```
 
-Agent 입력창에서는 파일명에서 `.md`를 뺀 이름으로 실행합니다.
+Antigravity 2.0 또는 IDE에서 workflow slash command가 보이면 파일명에서 `.md`를 뺀 이름으로 실행합니다.
 
 ```text
 /session-1-01-ollama-server-api
 /session-1-02-adk-ollama
 ```
 
-Workflow가 보이지 않으면 Customizations 패널의 Workflows에서 프로젝트 또는 Workspace workflow로 직접 추가하고, 파일 내용을 붙여넣으면 됩니다.
+Antigravity CLI(`agy`)에서 `No matches`가 나오면 slash command 대신 workflow 파일을 직접 참조해서 실행합니다.
+
+```text
+@.agents/workflows/session-1-01-ollama-server-api.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
+```
+
+```text
+@.agents/workflows/session-1-02-adk-ollama.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
+```
+
+Antigravity 2.0 또는 IDE에서 Workflow가 보이지 않으면 Customizations 패널의 Workflows에서 프로젝트 또는 Workspace workflow로 직접 추가하고, 파일 내용을 붙여넣으면 됩니다.
 
 Workflow 파일도 12,000자 이내로 유지하세요. 여러 반복 절차가 필요하면 하나의 긴 workflow보다 목적별 workflow로 나누는 편이 좋습니다.
 
@@ -324,7 +336,8 @@ Gemini CLI를 이미 쓰고 있다면 행사 전에 다음을 확인하세요.
 - Antigravity CLI를 사용할 경우 `agy --version` 성공
 - Antigravity CLI를 사용할 경우 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 인식 확인
-- Python 핸즈온 workflow slash command 확인
+- Antigravity 2.0 또는 IDE를 사용할 경우 Python 핸즈온 workflow slash command 확인
+- Antigravity CLI를 사용할 경우 `.agents/workflows/*.md` 파일 참조 프롬프트로 실행 확인
 
 Antigravity 설치나 로그인이 어렵다면 기존 VS Code 같은 코드 편집기를 준비해도 됩니다. 이 문서의 핵심 준비는 Ollama 설치, Gemma 4 모델 다운로드, API 테스트입니다.
 

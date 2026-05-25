@@ -31,6 +31,7 @@ Linux, ChromeOS, LM Studio, llama.cpp 같은 다른 로컬 LLM 실행 경로는 
 - 8GB 메모리 장비는 운영체제와 관계없이 `gemma4:e2b`만 준비하는 것을 권장합니다.
 - Intel Mac은 Ollama 공식 macOS 지원 기준에서 CPU 전용입니다. Mac에 GPU가 없다는 뜻은 아니지만, 16GB 이상이면 `gemma4:e4b`를 준비하고 8GB 장비만 `gemma4:e2b`를 준비하세요.
 - `gemma4:latest`는 나중에 바뀔 수 있으므로 행사 준비에서는 명시적 태그를 쓰세요.
+- `gemma4:latest`만 보이고 `gemma4:e4b`가 보이지 않으면 `ollama pull gemma4:e4b`를 한 번 더 실행해 명시 태그를 맞추세요. 당장 진행해야 하면 `.env`의 모델명을 `gemma4:latest`로 바꿉니다.
 - Ollama 서버 기본 주소는 `http://localhost:11434`입니다.
 - Python 핸즈온을 진행하려면 [Python + uv 설치 가이드](../../docs/09-python-uv-setup.md)를 먼저 확인하세요.
 - Session 1의 `hands-on/session-1/work/pyproject.toml`은 미리 제공되므로, `uv init` 대신 `uv sync` 또는 `uv run`으로 시작하면 됩니다.
@@ -138,6 +139,8 @@ ollama run gemma4:e4b
 curl http://localhost:11434/api/tags
 ```
 
+`curl http://localhost:11434/api/tags` 또는 `ollama list`에서 `gemma4:latest`만 보이면 `ollama pull gemma4:e4b`를 한 번 더 실행해 명시 태그를 맞추세요. 바로 실습을 진행해야 하면 `.env`의 `OLLAMA_MODEL`, `ADK_OLLAMA_MODEL` 값을 `gemma4:latest`로 바꿔도 됩니다.
+
 8GB 메모리 장비일 경우:
 
 ```bash
@@ -235,7 +238,7 @@ agy
 이 저장소에는 행사 실습용 Antigravity 설정이 들어 있습니다.
 
 - Rules: `.agents/rules/`에 공통 코딩 규칙을 둡니다.
-- Workflows: `.agents/workflows/`에 반복 실습 절차를 두고 Agent 입력창에서 `/workflow-name`으로 실행합니다.
+- Workflows: `.agents/workflows/`에 반복 실습 절차를 둡니다. Antigravity 2.0 또는 IDE에서는 `/workflow-name`으로 보일 수 있고, Antigravity CLI에서는 workflow 파일을 직접 참조해서 실행합니다.
 - Skills: `.agents/skills/<skill-name>/SKILL.md`에 특정 작업용 지식과 절차를 둘 수 있습니다.
 
 자세한 설치와 설정 흐름은 [Google Antigravity 2.0 및 CLI 준비 가이드](../../docs/07-google-antigravity.md)에 있습니다.
@@ -285,7 +288,8 @@ Google Antigravity를 사용할 경우:
 - Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
 - Python 핸즈온을 진행할 경우 `hands-on/session-1/work`에서 `uv sync` 성공
-- Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
+- Antigravity 2.0 또는 IDE에서 Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
+- Antigravity CLI에서 Python 핸즈온을 진행할 경우 `.agents/workflows/*.md` 파일 참조 프롬프트 확인
 
 문제가 생기면 [최종 체크리스트와 문제 해결](../../docs/10-checklist-troubleshooting.md)를 참고하세요.
 

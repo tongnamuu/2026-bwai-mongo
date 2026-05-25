@@ -42,6 +42,8 @@ Invoke-RestMethod http://localhost:11434/api/tags
 
 다운로드한 기본 모델 `gemma4:e4b`가 보이면 모델 준비가 끝난 상태입니다. 8GB 메모리 장비는 `gemma4:e2b`가 보여도 됩니다.
 
+`gemma4:latest`만 보이고 `gemma4:e4b`가 보이지 않으면 Ollama API의 모델명 검사가 실패할 수 있습니다. 행사 준비에서는 `ollama pull gemma4:e4b`를 한 번 더 실행해 명시 태그를 맞추세요. 바로 진행해야 하면 아래 API 예시의 `"model"` 값을 `gemma4:latest`로 바꿔 실행합니다.
+
 ## 2. Ollama Chat API 테스트
 
 macOS:

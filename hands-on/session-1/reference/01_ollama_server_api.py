@@ -8,6 +8,7 @@ Run after Ollama is running:
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from pathlib import Path
@@ -73,6 +74,11 @@ def parse_args() -> argparse.Namespace:
         default=180,
         help="Maximum seconds to wait for the model response.",
     )
+    parser.add_argument(
+        "--no-stream",
+        action="store_true",
+        help="Print the response after completion instead of streaming tokens.",
+    )
     return parser.parse_args()
 
 
@@ -112,27 +118,40 @@ def ensure_server_and_model(host: str, model: str) -> None:
 
     model_names = {item.get("name") for item in data.get("models", [])}
     if model not in model_names:
+        available = sorted(name for name in model_names if name)
+        latest_hint = ""
+        if model == DEFAULT_MODEL and "gemma4:latest" in model_names:
+            latest_hint = (
+                "\n참고: 현재 'gemma4:latest'만 보이면 같은 모델 계열이어도 "
+                "Ollama API에서는 태그명이 달라 별도 모델로 취급합니다.\n"
+                "권장: ollama pull gemma4:e4b\n"
+                "바로 진행: .env에서 OLLAMA_MODEL=gemma4:latest 로 변경"
+            )
         print(
             f"Ollama 서버에는 연결됐지만 {model!r} 모델이 없습니다.\n"
-            f"인터넷이 되는 곳에서 먼저 실행하세요: ollama pull {model}",
+            f"현재 사용 가능한 모델: {available}\n"
+            f"인터넷이 되는 곳에서 먼저 실행하세요: ollama pull {model}"
+            f"{latest_hint}",
             file=sys.stderr,
         )
         raise SystemExit(2)
 
 
 def call_ollama_chat(args: argparse.Namespace) -> str:
-    # Ollama native chat API expects messages plus stream=False for one JSON reply.
     payload = {
         "model": args.model,
         "messages": [
             {"role": "system", "content": args.system},
             {"role": "user", "content": args.prompt},
         ],
-        "stream": False,
+        "stream": not args.no_stream,
         "options": {
             "temperature": 0.3,
         },
     }
+    if not args.no_stream:
+        return stream_ollama_chat(args, payload)
+
     data = request_json(
         "POST",
         f"{args.host.rstrip('/')}/api/chat",
@@ -140,6 +159,32 @@ def call_ollama_chat(args: argparse.Namespace) -> str:
         timeout=args.timeout,
     )
     return data["message"]["content"]
+
+
+def stream_ollama_chat(args: argparse.Namespace, payload: dict[str, Any]) -> str:
+    import httpx
+
+    chunks = []
+    with httpx.Client(timeout=args.timeout) as client:
+        with client.stream(
+            "POST",
+            f"{args.host.rstrip('/')}/api/chat",
+            json=payload,
+            headers={"Accept": "application/json"},
+        ) as response:
+            response.raise_for_status()
+            for line in response.iter_lines():
+                if not line:
+                    continue
+                data = json.loads(line)
+                piece = data.get("message", {}).get("content", "")
+                if piece:
+                    print(piece, end="", flush=True)
+                    chunks.append(piece)
+                if data.get("done"):
+                    break
+    print()
+    return "".join(chunks)
 
 
 def call_openai_compatible(args: argparse.Namespace) -> str:
@@ -150,9 +195,12 @@ def call_openai_compatible(args: argparse.Namespace) -> str:
             {"role": "system", "content": args.system},
             {"role": "user", "content": args.prompt},
         ],
-        "stream": False,
+        "stream": not args.no_stream,
         "temperature": 0.3,
     }
+    if not args.no_stream:
+        return stream_openai_compatible(args, payload)
+
     data = request_json(
         "POST",
         f"{args.host.rstrip('/')}/v1/chat/completions",
@@ -162,28 +210,57 @@ def call_openai_compatible(args: argparse.Namespace) -> str:
     return data["choices"][0]["message"]["content"]
 
 
+def stream_openai_compatible(args: argparse.Namespace, payload: dict[str, Any]) -> str:
+    import httpx
+
+    chunks = []
+    with httpx.Client(timeout=args.timeout) as client:
+        with client.stream(
+            "POST",
+            f"{args.host.rstrip('/')}/v1/chat/completions",
+            json=payload,
+            headers={"Accept": "application/json"},
+        ) as response:
+            response.raise_for_status()
+            for line in response.iter_lines():
+                if not line or not line.startswith("data: "):
+                    continue
+                data_text = line.removeprefix("data: ").strip()
+                if data_text == "[DONE]":
+                    break
+                data = json.loads(data_text)
+                piece = data.get("choices", [{}])[0].get("delta", {}).get("content", "")
+                if piece:
+                    print(piece, end="", flush=True)
+                    chunks.append(piece)
+    print()
+    return "".join(chunks)
+
+
 def main() -> int:
     load_env()
     args = parse_args()
     # Fail fast with a friendly message before starting a long generation call.
     ensure_server_and_model(args.host, args.model)
 
-    try:
-        if args.endpoint == "openai":
-            answer = call_openai_compatible(args)
-            endpoint = "/v1/chat/completions"
-        else:
-            answer = call_ollama_chat(args)
-            endpoint = "/api/chat"
-    except Exception as exc:
-        print(f"Ollama API 호출에 실패했습니다: {exc}", file=sys.stderr)
-        return 1
+    endpoint = "/v1/chat/completions" if args.endpoint == "openai" else "/api/chat"
 
     print(f"\n[host] {args.host}")
     print(f"[endpoint] {endpoint}")
     print(f"[model] {args.model}")
     print(f"[prompt] {args.prompt}\n")
-    print(answer.strip())
+
+    try:
+        if args.endpoint == "openai":
+            answer = call_openai_compatible(args)
+        else:
+            answer = call_ollama_chat(args)
+    except Exception as exc:
+        print(f"Ollama API 호출에 실패했습니다: {exc}", file=sys.stderr)
+        return 1
+
+    if args.no_stream:
+        print(answer.strip())
     return 0
 
 

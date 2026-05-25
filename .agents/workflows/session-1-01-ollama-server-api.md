@@ -33,6 +33,7 @@ hands-on/session-1/work/.env.example
 - 호스트는 `--host` 옵션 또는 `OLLAMA_HOST` 환경 변수로 바꿀 수 있게 하세요.
 - 기본 모델은 `gemma4:e4b`입니다.
 - 모델은 `--model` 옵션 또는 `OLLAMA_MODEL` 환경 변수로 바꿀 수 있게 하세요.
+- Ollama는 모델 내용이 같아도 태그 문자열을 정확히 비교합니다. `gemma4:e4b`가 없고 `gemma4:latest`만 있으면 자동으로 바꾸지 말고, 오류 메시지에서 `ollama pull gemma4:e4b` 또는 `.env`의 `OLLAMA_MODEL=gemma4:latest` 설정을 안내하세요.
 - `--prompt` 옵션을 제공하세요.
 - `--system` 옵션을 제공하세요.
 - `--endpoint` 옵션을 제공하고 값은 `ollama` 또는 `openai`만 허용하세요.
@@ -40,9 +41,12 @@ hands-on/session-1/work/.env.example
 - 생성 전에 `GET /api/tags`로 Ollama 서버 연결과 모델 존재 여부를 확인하세요.
 - `--endpoint ollama`는 `POST /api/chat`을 사용하세요.
 - `--endpoint openai`는 `POST /v1/chat/completions`를 사용하세요.
-- 스트리밍이 아닌 응답을 사용하세요.
+- 기본은 스트리밍 응답을 사용해 토큰이 생성되는 즉시 출력하세요.
+- `--no-stream` 옵션을 제공해 스트리밍 없이 응답이 끝난 뒤 한 번에 출력할 수도 있게 하세요.
+- `--timeout` 옵션을 제공하고 기본값은 180초 이상으로 하세요.
 - system message와 user message를 모두 포함하세요.
 - 서버 연결 실패, 모델 미다운로드, API 호출 실패는 한국어로 안내하세요.
+- 모델 미다운로드 오류에는 현재 사용 가능한 모델 목록을 함께 출력하세요.
 - 출력에는 호스트, 엔드포인트, 모델명, 프롬프트, 응답 텍스트가 잘 보이게 하세요.
 - 코드는 초보자가 읽기 쉽도록 짧게 유지하세요.
 - `.env.example`에는 `OLLAMA_HOST`, `OLLAMA_API_BASE`, `OLLAMA_MODEL`, `ADK_OLLAMA_MODEL` 예시만 넣으세요.

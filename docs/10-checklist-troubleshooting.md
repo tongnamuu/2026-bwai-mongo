@@ -51,7 +51,8 @@
 - Antigravity CLI에서 `?`, `/usage`, `/permissions`, `/skills`, `/mcp`, `/tasks` 입력 성공
 - `.agents/rules`, `.agents/workflows`, `.agents/skills` 확인
 - Python 핸즈온을 진행할 경우 `hands-on/session-1/work`에서 `uv sync` 성공
-- Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` slash command 확인
+- Antigravity 2.0 또는 IDE에서 Python 핸즈온을 진행할 경우 `/session-1-01-ollama-server-api`, `/session-1-02-adk-ollama` workflow 확인
+- Antigravity CLI에서 Python 핸즈온을 진행할 경우 `.agents/workflows/*.md` 파일 참조 프롬프트 확인
 
 ### Session 2 로컬 RAG를 진행할 경우
 
@@ -204,6 +205,8 @@ Invoke-RestMethod http://localhost:11434/api/tags
 
 가능은 하지만 행사 준비용으로는 권장하지 않습니다. `latest`가 나중에 다른 모델로 바뀔 수 있으므로 `gemma4:e4b`, `gemma4:e2b`처럼 명시적 태그를 사용하세요.
 
+다만 `ollama list`에 `gemma4:latest`만 있고 `gemma4:e4b`가 없다면 생성 코드의 모델 존재 확인에서 실패할 수 있습니다. 권장 해결은 `ollama pull gemma4:e4b`를 한 번 더 실행하는 것입니다. 바로 진행해야 하면 `.env`에서 `OLLAMA_MODEL=gemma4:latest`, `ADK_OLLAMA_MODEL=gemma4:latest`로 바꿔 현재 로컬에 있는 태그를 그대로 사용하세요.
+
 ### Google Antigravity 로그인이 안 됩니다
 
 - Antigravity 2.0, Antigravity IDE, Antigravity CLI 모두 Google 로그인 흐름을 사용합니다.
@@ -226,4 +229,5 @@ Invoke-RestMethod http://localhost:11434/api/tags
 - Antigravity 2.0에서는 Project에 저장소 루트 폴더가 추가되어 있는지 확인하세요.
 - Agent 패널의 Customizations를 열고 Rules, Workflows, Skills를 확인하세요.
 - 자동 인식이 안 되면 `.agents/workflows/`의 Markdown 내용을 프로젝트 또는 Workspace workflow로 직접 추가하세요.
+- Antigravity CLI(`agy`)에서는 프로젝트 workflow가 slash command로 자동 등록되지 않을 수 있습니다. 이 경우 `@.agents/workflows/session-1-01-ollama-server-api.md`처럼 파일을 직접 참조해서 실행하세요.
 - 자세한 설정 위치는 [Google Antigravity 2.0 및 CLI 준비 가이드](./07-google-antigravity.md)를 확인하세요.

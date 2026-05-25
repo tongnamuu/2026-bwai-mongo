@@ -21,14 +21,21 @@
 이 핸즈온에서 Antigravity의 세 가지 설정은 역할을 나누어 사용합니다.
 
 - Rules: `hands-on/session-1/work/` 아래에 파일을 만들고, `uv run` 실행 방식을 쓰는 공통 규칙
-- Workflows: `/session-1-01-ollama-server-api` 같은 slash command로 실행하는 단계별 생성 절차
+- Workflows: `.agents/workflows/`에 저장한 단계별 생성 절차
 - Skills: `gemma4-python-hands-on`처럼 Agent가 Session 1 Python 실습의 맥락과 검토 기준을 참고하는 작업 지식
 
-따라서 보통 workflow를 실행하면 되고, skill은 코드 생성/검토/문제 해결의 품질을 맞추는 보조 장치로 사용합니다.
+Antigravity 2.0 또는 IDE에서 workflow가 slash command로 보이면 그대로 실행합니다.
 
 ```text
 /session-1-01-ollama-server-api
 시작
+```
+
+Antigravity CLI(`agy`)에서 위 slash command가 `No matches`로 나오면 workflow 파일을 직접 참조해서 실행합니다.
+
+```text
+@.agents/workflows/session-1-01-ollama-server-api.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
 ```
 
 skill이 자동으로 참고되지 않는 것처럼 보이면 Agent 요청에 skill 이름을 직접 넣습니다.
@@ -70,6 +77,14 @@ ollama pull gemma4:e4b
 ollama list
 ```
 
+`ollama list`에 `gemma4:latest`만 보이고 `gemma4:e4b`가 보이지 않으면, Ollama API에서는 태그명이 정확히 일치하지 않아 생성 코드가 모델을 찾지 못할 수 있습니다. 행사 준비에서는 명시 태그를 맞추기 위해 다음을 한 번 실행하세요.
+
+```bash
+ollama pull gemma4:e4b
+```
+
+바로 진행해야 한다면 `.env`에서 `OLLAMA_MODEL`과 `ADK_OLLAMA_MODEL`을 현재 보이는 태그인 `gemma4:latest`로 바꿔도 됩니다.
+
 8GB 메모리 장비에서만 `gemma4:e2b`를 사용하세요.
 
 macOS/Linux 8GB 장비:
@@ -105,11 +120,18 @@ uv sync
 
 ## 2. 01 Ollama 서버 API 코드 생성
 
-Antigravity를 사용하는 경우 Agent 채팅에서 workflow를 호출합니다.
+Antigravity 2.0 또는 IDE에서 workflow가 보이는 경우 Agent 채팅에서 workflow를 호출합니다.
 
 ```text
 /session-1-01-ollama-server-api
 시작
+```
+
+Antigravity CLI(`agy`)에서는 slash workflow가 자동으로 보이지 않을 수 있습니다. 이 경우 다음처럼 workflow 파일을 참조해서 요청합니다.
+
+```text
+@.agents/workflows/session-1-01-ollama-server-api.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
 ```
 
 AI Studio 또는 다른 도구를 사용하는 경우 System Instructions에 다음 파일 전체를 넣습니다.
@@ -156,6 +178,13 @@ OLLAMA_MODEL=gemma4:e4b
 ADK_OLLAMA_MODEL=gemma4:e4b
 ```
 
+`ollama list`에 `gemma4:latest`만 있는 상태라면 다음처럼 현재 보이는 태그를 넣습니다.
+
+```dotenv
+OLLAMA_MODEL=gemma4:latest
+ADK_OLLAMA_MODEL=gemma4:latest
+```
+
 ## 4. 01 Ollama 서버 API 코드 실행
 
 Ollama 앱을 켜거나 별도 터미널에서 서버를 실행합니다.
@@ -178,6 +207,12 @@ uv run python 01_ollama_server_api.py --help
 uv run python 01_ollama_server_api.py
 ```
 
+01 예제는 기본적으로 streaming으로 응답을 출력합니다. 응답을 한 번에 받고 싶으면 `--no-stream`을 붙입니다.
+
+```bash
+uv run python 01_ollama_server_api.py --no-stream
+```
+
 OpenAI 호환 API:
 
 ```bash
@@ -188,11 +223,18 @@ uv run python 01_ollama_server_api.py --endpoint openai
 
 01에서 Ollama 서버 API를 직접 호출했다면, 이번에는 ADK agent가 작은 custom model adapter를 통해 로컬 Ollama Gemma 4를 쓰도록 만듭니다. 이 실습에서는 Ollama `/api/chat`을 직접 호출합니다.
 
-Antigravity를 사용하는 경우:
+Antigravity 2.0 또는 IDE에서 workflow가 보이는 경우:
 
 ```text
 /session-1-02-adk-ollama
 시작
+```
+
+Antigravity CLI(`agy`)에서는 다음처럼 workflow 파일을 참조해서 요청합니다.
+
+```text
+@.agents/workflows/session-1-02-adk-ollama.md
+이 workflow 파일의 지시를 그대로 실행해 줘. 추가 질문하지 말고 시작해.
 ```
 
 AI Studio 또는 다른 도구를 사용하는 경우 System Instructions에 다음 파일 전체를 넣습니다.
@@ -212,6 +254,7 @@ AI Studio 응답에 나온 코드 블록을 아래 경로에 저장합니다.
 ```text
 hands-on/session-1/work/adk_02_ollama_agent/__init__.py
 hands-on/session-1/work/adk_02_ollama_agent/agent.py
+hands-on/session-1/work/02_adk_streaming_run.py
 ```
 
 ## 6. 02 ADK Ollama Agent 실행
@@ -234,7 +277,14 @@ $env:OLLAMA_API_BASE = "http://localhost:11434"
 
 ```bash
 uv run python -m py_compile adk_02_ollama_agent/agent.py
+uv run python -m py_compile 02_adk_streaming_run.py
 uv run adk run adk_02_ollama_agent
+```
+
+`adk run` 기본 CLI 실행은 ADK의 일반 실행 모드라 최종 응답 중심으로 보일 수 있습니다. 스트리밍 청크를 터미널에서 바로 확인하려면 생성된 스트리밍 실행 스크립트를 사용합니다.
+
+```bash
+uv run python 02_adk_streaming_run.py "MongoDB 벡터 검색을 로컬 Gemma 4와 함께 쓰는 흐름을 3단계로 설명해 줘."
 ```
 
 예시 입력:

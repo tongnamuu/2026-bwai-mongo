@@ -8,6 +8,7 @@ Run after Ollama is running:
 from __future__ import annotations
 
 from collections.abc import AsyncGenerator
+import json
 import os
 from pathlib import Path
 
@@ -53,6 +54,45 @@ from google.adk.models import LlmRequest
 from google.adk.models import LlmResponse
 from google.genai import types
 import httpx
+
+
+def make_text_response(
+    model: str,
+    text: str,
+    *,
+    partial: bool,
+    turn_complete: bool,
+) -> LlmResponse:
+    return LlmResponse(
+        model_version=model,
+        content=types.Content(
+            role="model",
+            parts=[types.Part(text=text)],
+        ),
+        partial=partial,
+        turn_complete=turn_complete,
+    )
+
+
+def format_ollama_error(model: str, exc: Exception) -> str:
+    detail = str(exc)
+    if isinstance(exc, httpx.HTTPStatusError):
+        status = exc.response.status_code
+        try:
+            response_text = exc.response.text
+        except httpx.ResponseNotRead:
+            response_text = ""
+        detail = f"HTTP {status}: {response_text or exc.response.reason_phrase}"
+
+    hint = ""
+    if "404" in detail or "not found" in detail.lower():
+        hint = (
+            f"\n모델 태그를 확인하세요. `{model}`이 없다면 "
+            f"`ollama pull {model}`을 실행하거나, `.env`에 "
+            "`ADK_OLLAMA_MODEL=gemma4:latest`처럼 현재 가진 태그를 설정하세요."
+        )
+
+    return f"Ollama API 호출에 실패했습니다: {detail}{hint}"
 
 
 def content_to_text(content: types.Content | str | None) -> str:
@@ -114,14 +154,51 @@ class OllamaChatLlm(BaseLlm):
         payload = {
             "model": model,
             "messages": self.build_messages(llm_request),
-            "stream": False,
+            "stream": stream,
             "options": {
-                "temperature": llm_request.config.temperature or 0.3,
+                "temperature": (
+                    llm_request.config.temperature
+                    if llm_request.config.temperature is not None
+                    else 0.3
+                ),
             },
         }
 
         try:
             async with httpx.AsyncClient(timeout=self.timeout) as client:
+                if stream:
+                    answer_parts = []
+                    async with client.stream(
+                        "POST",
+                        f"{self.api_base.rstrip('/')}/api/chat",
+                        json=payload,
+                        headers={"Accept": "application/x-ndjson"},
+                    ) as response:
+                        response.raise_for_status()
+                        async for line in response.aiter_lines():
+                            if not line:
+                                continue
+                            data = json.loads(line)
+                            piece = data.get("message", {}).get("content", "")
+                            if piece:
+                                answer_parts.append(piece)
+                                yield make_text_response(
+                                    model,
+                                    piece,
+                                    partial=True,
+                                    turn_complete=False,
+                                )
+                            if data.get("done"):
+                                break
+
+                    yield make_text_response(
+                        model,
+                        "".join(answer_parts),
+                        partial=False,
+                        turn_complete=True,
+                    )
+                    return
+
                 response = await client.post(
                     f"{self.api_base.rstrip('/')}/api/chat",
                     json=payload,
@@ -132,18 +209,16 @@ class OllamaChatLlm(BaseLlm):
         except Exception as exc:
             yield LlmResponse(
                 error_code="OLLAMA_API_ERROR",
-                error_message=f"Ollama API 호출에 실패했습니다: {exc}",
+                error_message=format_ollama_error(model, exc),
             )
             return
 
         answer = data.get("message", {}).get("content", "")
-        yield LlmResponse(
-            model_version=model,
-            content=types.Content(
-                role="model",
-                parts=[types.Part(text=answer)],
-            ),
+        yield make_text_response(
+            model,
+            answer,
             partial=False,
+            turn_complete=True,
         )
 
 
