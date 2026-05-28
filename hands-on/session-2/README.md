@@ -168,8 +168,8 @@ OLLAMA_MODEL=<로컬설치모델명>
 | 5 | MongoDB에 데이터 적재 |
 | 6 | MongoDB Vector Search 인덱스 생성 |
 | 7 | MongoDB Vector Search 테스트 ($vectorSearch) |
-| 8 | 대화 기록 저장/불러오기 (Memory) |
-| 9 | Gemma 4로 RAG 답변 생성 |
+| 8 | Gemma 4로 RAG 답변 생성 (`generate_answer`) |
+| 9 (보너스) | 대화 기록 저장/불러오기 + 메모리 포함 답변 생성 (`generate_answer_with_memory`) |
 
 > `sentence-transformers` 첫 실행 시 `voyageai/voyage-4-nano` 모델을 자동으로 다운로드합니다 (최초 1회만 수행). 현장에서 기다리지 않도록 [사전 준비 가이드](../../docs/12-session-2-rag-setup.md#5-임베딩-모델-미리-다운로드)에 따라 행사 전에 미리 받아두세요.
 
