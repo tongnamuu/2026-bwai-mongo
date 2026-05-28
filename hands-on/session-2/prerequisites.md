@@ -123,7 +123,7 @@ Session 2 실습은 `hands-on/session-2/work/rag_pipeline.ipynb`에서 진행합
 
 필수/권장 확장 프로그램:
 
-- **Jupyter** (`ms-toolsai.jupyter`) [필수]: 노트북 실행과 커널 선택에 필요합니다.
+- **Jupyter** (`ms-toolsai.jupyter`) [필수]: 노트북 실행과 커널 선택에 필요합니다. `rag_pipeline.ipynb`를 열고 우측 상단 **Select Kernel** → **Install/Enable suggested extensions Python + Jupyter**를 선택해 설치합니다.
 - **MongoDB for VS Code** (`mongodb.mongodb-vscode`) [추천]: Local Atlas에 적재된 컬렉션과 문서를 편집기 안에서 확인할 수 있습니다.
 - **Markdown Preview Mermaid Support** (`bierner.markdown-mermaid`) [선택]: README의 Mermaid 아키텍처 다이어그램을 그래픽으로 확인할 때 사용합니다.
 
